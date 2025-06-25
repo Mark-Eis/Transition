@@ -123,9 +123,7 @@ static const R_CallMethodDef CallEntries[] = {
     {NULL, NULL, 0}
 };
 
-void transition_init(DllInfo *dll);
 RcppExport void R_init_Transition(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
-    transition_init(dll);
 }
