@@ -78,7 +78,4 @@ DataFrame add_prev_result(DataFrame object, const char* subject, const char* tim
 IntegerVector get_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result);
 List uniques(DataFrame object, const char* subject, const char* timepoint, const char* result);
 
-// Package Init
-void transition_init(DllInfo *dll);
-
 #endif  // TRANSITION_H
