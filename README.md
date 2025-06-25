@@ -38,13 +38,13 @@ devtools::install_github("Mark-Eis/Transition")
 * Interpolate these transitions into a data frame for further analysis with `add_transitions()`.
 
 * Identify the previous test result for individual subjects and timepoints in a longitudinal study
-    with `get_prev_results()`.
+    with `get_prev_result()`.
 
 * Interpolate these previous test results into a data frame for further analysis with
     `add_prev_result()`.
 
 * Identify the previous test date for individual subjects and timepoints in a longitudinal study
-    `get_prev_dates()`.
+    `get_prev_date()`.
 
 * Interpolate these previous test dates into a data frame for further analysis with `add_prev_date()`.
 
