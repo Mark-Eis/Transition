@@ -95,7 +95,7 @@ inline int angust(int diff, int cutoff)
 {
 //	cout << "@angust(int, int) diff " << diff << "; cutoff " << cutoff << endl;
 	int out { abs(diff) < cutoff ? abs(diff) : cutoff};
-	return signbit(diff) ? out *= -1 : out;
+	return std::signbit(diff) ? out *= -1 : out;
 }
 
 
@@ -104,7 +104,7 @@ inline int adjust(int diff)
 {
 //	cout << "@adjust(int) diff " << diff << endl;
 	int out = (abs(diff) + 1) / 2;
-	return signbit(diff) ? out *= -1 : out;
+	return std::signbit(diff) ? out *= -1 : out;
 }
 
 
@@ -386,7 +386,7 @@ DataFrame add_transitions(
 		return Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).add_transition(transition, method);
 	} catch (exception& e) {
 		Rcerr << "Error in add_transitions(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return DataFrame::create();
@@ -408,7 +408,7 @@ IntegerVector get_transitions(
 		return wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).get_transition(method));
 	} catch (exception& e) {
 		Rcerr << "Error in get_transitions(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return IntegerVector();
@@ -472,7 +472,7 @@ DataFrame add_prev_date(DataFrame object, const char* subject = "subject", const
 		return object;
 	} catch (exception& e) {
 		Rcerr << "Error in add_prev_date(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return DataFrame::create();
@@ -488,7 +488,7 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 		return wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).prev_date());
 	} catch (exception& e) {
 		Rcerr << "Error in get_prev_date(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return DateVector(0);
@@ -567,7 +567,7 @@ DataFrame add_prev_result(DataFrame object, const char* subject = "subject", con
 		return object;
 	} catch (exception& e) {
 		Rcerr << "Error in add_prev_result(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return DataFrame::create();
@@ -583,7 +583,7 @@ IntegerVector get_prev_result(DataFrame object, const char* subject = "subject",
 		return prevres_intvec(object, subject, timepoint, result);
 	} catch (exception& e) {
 		Rcerr << "Error in get_prev_result(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return IntegerVector();
@@ -659,7 +659,7 @@ List uniques(DataFrame object, const char* subject = "subject", const char* time
 		return List::create(_[subject] = subvec, _[timepoint] = td.unique_date(), _[result] = rltvec);
 	} catch (exception& e) {
 		Rcerr << "Error in uniques(): " << e.what() << '\n';
-	} catch (std::invalid_argument iva) {
+	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return List::create();
