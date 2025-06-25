@@ -1,10 +1,9 @@
 # Transition
 ### Characterise Transitions in Test Result Status in Longitudinal Studies
 
-#XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-Analyse data from longitudinal studies to characterise changes in values of semi-quantitative outcome
-variables within individual subjects, using high performance C++ code to enable rapid processing of
-large datasets. A choice of methods is available for codifying these state transitions.
+Analyse data from longitudinal studies to characterise changes in values of semi-quantitative
+outcome variables within individual subjects, using high performance C++ code to enable rapid
+processing of large datasets. A choice of methods is available for codifying these state transitions.
 
 ## Installation
 
@@ -26,38 +25,31 @@ devtools::install_github("Mark-Eis/Transition")
 
 **Authors:** Mark C. Eisler and Ana V. Rabaza
 
-**eMail:** Mark.Eisler@bristol.ac.uk
+**eMail:** Mark.Eisler@bristol.ac.uk, arabaza@pasteur.edu.uy
 
-**ORCID** = [0000-0001-6843-3345](https://orcid.org/0000-0001-6843-3345)
-**ORCID** = [0000-0002-9713-0797](https://orcid.org/0000-0002-9713-0797)
+**ORCID** = [0000-0001-6843-3345](https://orcid.org/0000-0001-6843-3345), 
+[0000-0002-9713-0797](https://orcid.org/0000-0002-9713-0797)
 
 ### Transition Package Overview: –
 
-* Create <code><a href="https://mark-eis.github.io/Waypoint/reference/coords.html">"coords"</a></code>
-  objects in each format with `as_coords()`.
+* Identify temporal transitions in test results for individual subjects in a longitudinal study with
+    `get_transitions()`.
 
-* Create <code><a href="https://mark-eis.github.io/Waypoint/reference/waypoints.html">"waypoints"</a></code>
- objects in each format with `as_waypoints()`.
+* Interpolate these transitions into a data frame for further analysis with `add_transitions()`.
 
-* Convert `"coords"` and `"waypoints"` objects between decimal degrees, degrees
-  and minutes, and degrees, minutes and seconds formats with `convert()`.
+* Identify the previous test result for individual subjects and timepoints in a longitudinal study
+    with get_prev_results() .
 
-* Assign latitude and longitude attributes to individual coordinate values
-  within `"coords"` objects with
-  <code><a href="https://mark-eis.github.io/Waypoint/reference/coords.html">latlon&lt;-()</a></code>.
+* Interpolate these previous test results into a data frame for further analysis with
+    `add_prev_result()`.
 
-* Ensure values within `"coords"` and `"waypoints"` objects are valid
-  geographic locations with `validate()` and identify individual invalid
-  values with `review()`.
+* Identify the previous test date for individual subjects and timepoints in a longitudinal study
+    `get_prev_dates()`.
 
-* Use `format()` and
-  <code><a href="https://mark-eis.github.io/Waypoint/reference/format.html">print()</a></code>
-  S3 methods for neat formatting and printing of objects of classes `"coords"` and `"waypoints"`.
+* Interpolate these previous test dates into a data frame for further analysis with add_prev_date().
 
-* Use 
-  <code><a href="https://mark-eis.github.io/Waypoint/reference/Extract.html">&#96;[&#96;(<i>&lt;coords&gt;</i>)</a></code> and 
-  <code><a href="https://mark-eis.github.io/Waypoint/reference/Extract.html">&#96;[&lt;-&#96;(<i>&lt;coords&gt;</i>)</a></code>
-  S3 methods to extract or replace subsets of `"coords"` objects.
+* Identify unique values for subjects, timepoints and test results in longitudinal study data with
+    `uniques()`.
 
 #### Methodology  
 
