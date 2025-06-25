@@ -48,7 +48,7 @@ a \code{\link{factor}}.
 
 \dontshow{
 Blackmore <- transform(Blackmore, timepoint = as.Date("2000-01-01") + round(age * 365.25),
-    result = cut(exercise, breaks = seq(0, 30, 2), labels = paste0("≤", seq(0, 30, 2)[-1]),
+    result = cut(exercise, breaks = seq(0, 30, 2), labels = paste0("<=", seq(0, 30, 2)[-1]),
         include.lowest = TRUE, ordered_result = TRUE))
 }
  ## Continuing example from `add_transitions`

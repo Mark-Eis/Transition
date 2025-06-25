@@ -96,7 +96,7 @@ Blackmore <- transform(Blackmore,
     result = cut(
         exercise,
         breaks = seq(0, 30, 2),
-        labels = paste0("≤", seq(0, 30, 2)[-1]),
+        labels = paste0("<=", seq(0, 30, 2)[-1]),
         include.lowest = TRUE,
         ordered_result = TRUE
     )
