@@ -5,13 +5,19 @@
 #ifndef TRANSITION_H
 #define TRANSITION_H
 
+// #define DEBUG
+
 /// __________________________________________________
 /// Class and Function declarations
 
 // Development and debugging
+#ifdef DEBUG
+
 void _ctrsgn(const std::type_info&, bool = false);
 class Demangler;
 std::ostream& operator<< (std::ostream&, const Demangler&);
+
+#endif // #ifdef DEBUG
 
 // Utility
 template<class T, class U> 

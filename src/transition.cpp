@@ -13,9 +13,11 @@ using std::ostream;
 using std::string;
 using std::vector;
 
+
 /// __________________________________________________
 /// __________________________________________________
 /// Development and Debugging functions
+#ifdef DEBUG
 
 /// Report object construction and destruction
 void _ctrsgn(const std::type_info& obj, bool destruct)
@@ -41,6 +43,7 @@ ostream& operator<< (ostream& stream, const Demangler& d)
   return stream << string(d);
 }
 
+#endif // #ifdef DEBUG
 
 /// __________________________________________________
 /// Utility
