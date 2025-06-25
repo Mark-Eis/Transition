@@ -38,8 +38,7 @@
 #' @references
 #' Davis C, Blackmore E, Katzman DK, Fox J. (2005). Female adolescents with anorexia nervosa and
 #' their parents: a case-control study of exercise attitudes and behaviours. \emph{Psychological
-#' Medicine} \strong{35}(3):377-386.
-#' \href{https://doi.org/10.1017/S0033291704003447}{\doi{10.1017/S0033291704003447}}
+#' Medicine} \strong{35}(3):377-386. \doi{10.1017/S0033291704003447}
 #'
 #' @note
 #' The original version in package \pkg{carData} states there are 98 \code{control} subjects, but the

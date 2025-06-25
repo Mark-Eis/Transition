@@ -668,5 +668,5 @@ List uniques(DataFrame object, const char* subject = "subject", const char* time
 
 // [[Rcpp::init]]
 void transition_init(DllInfo *dll) {
-	Rcout << "\a\a\a";
+	Rcout << "\a\a\a\a\a\a\a";
 }
