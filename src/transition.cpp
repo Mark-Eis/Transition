@@ -450,8 +450,9 @@ IntegerVector get_transitions(
 //'
 //' #  Data frame containing year as numeric: 2018 to 2025
 //' (df <- data.frame(
-//'     subject = rep(1001:1002, 4),
-//'     timepoint = 2018:2025
+//'     subject = rep(1001:1003),
+//'     timepoint = rep(2018:2025, each = 3),
+//'     result = gl(3, 4, lab = c("jolly", "good", "show"), ordered = TRUE)
 //'     ))
 //'
 //' #  Convert to R dates
@@ -461,13 +462,14 @@ IntegerVector get_transitions(
 //' )
 //'
 //' # Format R dates to show just the year
-//' (df <- transform(df, year = format(timepoint, "%Y")))
+//' transform(df, year = format(timepoint, "%Y"))
 //'
 //' #  Data frame containing year and month as numeric: July 2024 to June 2025
 //' (df <- data.frame(
-//'            subject = rep(1001:1002, 6),
-//'            year = rep(2024:2025, each = 6),
-//'            month = c(7:12, 1:6)
+//'            subject = 1001:1002,
+//'            year = rep(2024:2025, each = 12),
+//'            month = rep(c(7:12, 1:6), each = 2),
+//'            result = gl(2, 3, lab = c("low", "high"), ordered = TRUE)
 //'        ))
 //'
 //' #  Convert to R dates
@@ -479,7 +481,7 @@ IntegerVector get_transitions(
 //' df
 //'
 //' # Format R dates to show just the month and year
-//' (df <- transform(df, month_year = format(timepoint, "%b-%Y")))
+//' transform(df, month_year = format(timepoint, "%b-%Y")))
 //'
 //' rm(df)
 //'
