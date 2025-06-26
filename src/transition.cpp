@@ -273,8 +273,9 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //' @param transition \code{character}, name to be used for a new column (of type
 //'   \code{\link{integer}}) to record transitions; default \code{"transition"}.
 //'
-//' @param method \code{\link{integer}}, \code{1L}, \code{2L}, ... \code{5L}, specifying the method
-//'   required for calculating transitions; default \code{1L}.
+//' @param cap \code{\link{integer}}, required for calculating transitions; default \code{0L}.
+//'
+//' @param divisor \code{\link{integer}}, required for calculating transitions; default \code{0L}.
 //'
 //' @return
 //'
