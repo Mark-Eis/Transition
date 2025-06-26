@@ -12,7 +12,8 @@ add_transitions(
   timepoint = "timepoint",
   result = "result",
   transition = "transition",
-  method = 1L
+  cap = 0L,
+  modulate = 0L
 )
 
 get_transitions(
@@ -20,7 +21,8 @@ get_transitions(
   subject = "subject",
   timepoint = "timepoint",
   result = "result",
-  method = 1L
+  cap = 0L,
+  modulate = 0L
 )
 }
 \arguments{
@@ -39,8 +41,9 @@ recording test results; default \code{"result"}.}
 \item{transition}{\code{character}, name to be used for a new column (of type
 \code{\link{integer}}) to record transitions; default \code{"transition"}.}
 
-\item{method}{\code{\link{integer}}, \code{1L}, \code{2L}, ... \code{5L}, specifying the method
-required for calculating transitions; default \code{1L}.}
+\item{cap}{\code{\link{integer}}, required for calculating transitions; default \code{0L}.}
+
+\item{modulate}{\code{\link{integer}}, required for calculating transitions; default \code{0L}.}
 }
 \value{
 \item{\code{add_transitions()}}{A \code{\link{data.frame}} based on \code{object}, with an added
@@ -71,8 +74,12 @@ and included in data frame \code{object} in the column named as specified by arg
 (see \emph{Note}).
 
 Temporal transitions in the test \code{results} for each \code{subject} within the \code{object}
-\code{\link{data.frame}} are characterised using one of various methods choosen using option
-\code{method}.
+\code{\link{data.frame}} are characterised using methods governed by options \code{cap} and
+\code{modulate}. If these two parameters are both zero (their defaults), a simple arithmetic
+difference between the levels of the present and previous result is calculated. Otherwise, if
+the value of \code{modulate} is a positive, non-zero integer, the arithmetic difference is
+subjected to integer division by that value. Finally, if \code{cap} is a positive, non-zero
+integer, the (possibly moudulated) arithmetic difference is capped at that value.
 }
 \note{
 Time points represented by \code{\link{integer}} or \code{\link{numeric}} values can be converted to R
@@ -103,48 +110,20 @@ Blackmore <- transform(Blackmore,
 )
   # subject, timepoint and result arguments now as defaults and required types
 Blackmore |> str()
-  # Integer vector of test result transitions (default method 1)
+  # Integer vector of test result transitions (defaults to cap = 0, modulate = 0)
 get_transitions(Blackmore)
+  # Tabulate values of transitions
+get_transitions(Blackmore) |> table()
+  # Effect of cap argument
+get_transitions(Blackmore, cap = 6) |> table()
+  # Effect of modulate argument
+get_transitions(Blackmore, modulate = 2) |> table()
   # Add column of test result transitions to data frame
-add_transitions(Blackmore) |> head(32)
-  # Method 4, showing transitions as either positive (1) or negative (-1)
-add_transitions(Blackmore, method = 4) |> head(10)
+add_transitions(Blackmore) |> head(22)
+  # Showing transitions as either positive (1) or negative (-1) (defaults to modulate = 0)
+add_transitions(Blackmore, cap = 1) |> head(14)
 
 rm(Blackmore)
-
-## Formatting numeric values as R dates
-
-#  Data frame containing year as numeric: 2018 to 2025
-(df <- data.frame(
-    subject = rep(1001:1002, 4),
-    timepoint = 2018:2025
-    ))
-
-#  Convert to R dates
-(df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
-
-# Format R dates to show just the year
-(df <- transform(df, year = format(timepoint, "\%Y")))
-
-#  Data frame containing year and month as numeric: July 2024 to June 2025
-(df <- data.frame(
-           subject = rep(1001:1002, 6),
-           year = rep(2024:2025, each = 6),
-           month = c(7:12, 1:6)
-       ))
-
-#  Convert to R dates
-df <- transform(df, timepoint = as.Date(paste(year, month, "01", sep = "-")))
-\dontshow{
-    df$year <- NULL
-    df$month <- NULL
-}
-df
-
-# Format R dates to show just the month and year
-(df <- transform(df, month_year = format(timepoint, "\%b-\%Y")))
-
-rm(df)
 
 }
 \seealso{

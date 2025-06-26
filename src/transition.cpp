@@ -92,15 +92,13 @@ vector<T> get_unique(const vector<T> vec)
 }
 
 // Adjust the difference,symmetrically
-inline int adjust(int diff, int cap, int divisor)
+inline int adjust(int diff, int cap, int modulate)
 {
 //	cout << "@adjust(int) diff " << diff << endl;
-	if (cap < 0 || divisor < 0)
-		throw std::invalid_argument("\"cap\" and \"divisor\" must both be positive integers");
 	bool neg = std::signbit(diff);
 	diff = abs(diff);
-	if (divisor > 1)
-		diff = (diff + 1) / divisor;
+	if (modulate > 1)
+		diff = (diff + 1) / modulate;
 	if (bool(cap))
 		diff = (diff < cap) ? diff : cap;
 	return neg ? diff *= -1 : diff;
@@ -184,24 +182,28 @@ vector<int> Transitiondata::prev_result() const
 
 
 // Add transitions column to data frame
-DataFrame Transitiondata::add_transition(const char* colname, int cap, int divisor)
+DataFrame Transitiondata::add_transition(const char* colname, int cap, int modulate)
 {
 //	cout << "@Transitiondata::add_transition(int)\n";
 	if (df.containsElementNamed(colname))
 		stop("Data frame already has column named \"%s\", try another name", colname);
- 	df.push_back(get_transition(cap, divisor), colname);
+ 	df.push_back(get_transition(cap, modulate), colname);
 	return df;
 }
 
 
 // Return transitions vector
-vector<int> Transitiondata::get_transition(int cap, int divisor) const
+vector<int> Transitiondata::get_transition(int cap, int modulate) const
 {
-//	cout << "@Transitiondata::get_transition(int) method = " << method << endl;
+//	cout << "@Transitiondata::get_transition(int) cap = " << cap << "; modulate = " << modulate << endl;
+	if (cap < 0)
+		throw std::invalid_argument("\"cap\" less than zero");
+	if (modulate < 0)
+		throw std::invalid_argument("\"modulate\" less than zero");
 	auto previous { prev_result() };
 	std::vector<int> transitions(nrows);
 	transform(previous.begin(), previous.end(), testresult.begin(), transitions.begin(),
-		[cap, divisor](int prev, int curr) { return (NA_INTEGER == prev) ? NA_INTEGER : adjust(curr - prev, cap, divisor); }
+		[cap, modulate](int prev, int curr) { return (NA_INTEGER == prev) ? NA_INTEGER : adjust(curr - prev, cap, modulate); }
 	);
 	return transitions;
 }
@@ -251,8 +253,12 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //' (see \emph{Note}).
 //'
 //' Temporal transitions in the test \code{results} for each \code{subject} within the \code{object}
-//' \code{\link{data.frame}} are characterised using one of various methods choosen using option
-//' \code{method}.
+//' \code{\link{data.frame}} are characterised using methods governed by options \code{cap} and
+//' \code{modulate}. If these two parameters are both zero (their defaults), a simple arithmetic
+//' difference between the levels of the present and previous result is calculated. Otherwise, if
+//' the value of \code{modulate} is a positive, non-zero integer, the arithmetic difference is
+//' subjected to integer division by that value. Finally, if \code{cap} is a positive, non-zero
+//' integer, the (possibly moudulated) arithmetic difference is capped at that value.
 //'
 //' @family transitions
 //' @seealso
@@ -275,7 +281,7 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //'
 //' @param cap \code{\link{integer}}, required for calculating transitions; default \code{0L}.
 //'
-//' @param divisor \code{\link{integer}}, required for calculating transitions; default \code{0L}.
+//' @param modulate \code{\link{integer}}, required for calculating transitions; default \code{0L}.
 //'
 //' @return
 //'
@@ -315,48 +321,20 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //' )
 //'   # subject, timepoint and result arguments now as defaults and required types
 //' Blackmore |> str()
-//'   # Integer vector of test result transitions (default method 1)
+//'   # Integer vector of test result transitions (defaults to cap = 0, modulate = 0)
 //' get_transitions(Blackmore)
+//'   # Tabulate values of transitions
+//' get_transitions(Blackmore) |> table()
+//'   # Effect of cap argument
+//' get_transitions(Blackmore, cap = 6) |> table()
+//'   # Effect of modulate argument
+//' get_transitions(Blackmore, modulate = 2) |> table()
 //'   # Add column of test result transitions to data frame
-//' add_transitions(Blackmore) |> head(32)
-//'   # Method 4, showing transitions as either positive (1) or negative (-1)
-//' add_transitions(Blackmore, method = 4) |> head(10)
+//' add_transitions(Blackmore) |> head(22)
+//'   # Showing transitions as either positive (1) or negative (-1) (defaults to modulate = 0)
+//' add_transitions(Blackmore, cap = 1) |> head(14)
 //'
 //' rm(Blackmore)
-//'
-//' ## Formatting numeric values as R dates
-//'
-//' #  Data frame containing year as numeric: 2018 to 2025
-//' (df <- data.frame(
-//'     subject = rep(1001:1002, 4),
-//'     timepoint = 2018:2025
-//'     ))
-//'
-//' #  Convert to R dates
-//' (df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
-//'
-//' # Format R dates to show just the year
-//' (df <- transform(df, year = format(timepoint, "%Y")))
-//'
-//' #  Data frame containing year and month as numeric: July 2024 to June 2025
-//' (df <- data.frame(
-//'            subject = rep(1001:1002, 6),
-//'            year = rep(2024:2025, each = 6),
-//'            month = c(7:12, 1:6)
-//'        ))
-//'
-//' #  Convert to R dates
-//' df <- transform(df, timepoint = as.Date(paste(year, month, "01", sep = "-")))
-//' \dontshow{
-//'     df$year <- NULL
-//'     df$month <- NULL
-//' }
-//' df
-//'
-//' # Format R dates to show just the month and year
-//' (df <- transform(df, month_year = format(timepoint, "%b-%Y")))
-//'
-//' rm(df)
 //'
 // [[Rcpp::export]]
 DataFrame add_transitions(
@@ -366,12 +344,12 @@ DataFrame add_transitions(
 	const char* result = "result",
 	const char* transition = "transition",
 	int cap = 0,
-	int divisor = 0)
+	int modulate = 0)
 {
 //	cout << "——Rcpp::export——add_transitions(DataFrame, const char*, const char*, const char*, const char*, int) subject " << subject
 //		 << "; timepoint " << timepoint << "; result " << result << "; transition " << transition << endl;
 	try {
-		return Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).add_transition(transition, cap, divisor);
+		return Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).add_transition(transition, cap, modulate);
 	} catch (exception& e) {
 		Rcerr << "Error in add_transitions(): " << e.what() << '\n';
 	} catch (std::invalid_argument& iva) {
@@ -389,12 +367,12 @@ IntegerVector get_transitions(
 	const char* timepoint = "timepoint",
 	const char* result = "result",
 	int cap = 0,
-	int divisor = 0)
+	int modulate = 0)
 {
 //	cout << "——Rcpp::export——get_transitions(DataFrame, const char*, const char*, const char*, int) subject " << subject
 //		 << "; timepoint " << timepoint << "; result " << result << endl;
 	try {
-		return wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).get_transition(cap, divisor));
+		return wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).get_transition(cap, modulate));
 	} catch (exception& e) {
 		Rcerr << "Error in get_transitions(): " << e.what() << '\n';
 	} catch (std::invalid_argument& iva) {
@@ -452,6 +430,41 @@ IntegerVector get_transitions(
 //'
 //' rm(Blackmore)
 //'
+//' ###
+//' ## Example on formatting numeric values as R dates
+//'
+//' #  Data frame containing year as numeric: 2018 to 2025
+//' (df <- data.frame(
+//'     subject = rep(1001:1002, 4),
+//'     timepoint = 2018:2025
+//'     ))
+//'
+//' #  Convert to R dates
+//' (df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
+//'
+//' # Format R dates to show just the year
+//' (df <- transform(df, year = format(timepoint, "%Y")))
+//'
+//' #  Data frame containing year and month as numeric: July 2024 to June 2025
+//' (df <- data.frame(
+//'            subject = rep(1001:1002, 6),
+//'            year = rep(2024:2025, each = 6),
+//'            month = c(7:12, 1:6)
+//'        ))
+//'
+//' #  Convert to R dates
+//' df <- transform(df, timepoint = as.Date(paste(year, month, "01", sep = "-")))
+//' \dontshow{
+//'     df$year <- NULL
+//'     df$month <- NULL
+//' }
+//' df
+//'
+//' # Format R dates to show just the month and year
+//' (df <- transform(df, month_year = format(timepoint, "%b-%Y")))
+//'
+//' rm(df)
+//'
 // [[Rcpp::export]]
 DataFrame add_prev_date(DataFrame object, const char* subject = "subject", const char* timepoint = "timepoint", const char* result = "result")
 {
@@ -499,11 +512,6 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 //' @details
 //' See \code{\link{Transitions}} \emph{details}.
 //'
-//' Differences between levels of a result and the previous result for the same subject may easily be
-//' calculated as an alternative to using \code{\link{add_transitions}()} or
-//' \code{\link{get_transitions}()}, allowing application of any user-defined function to these
-//' differences, see \emph{examples}.
-//'
 //' @family transitions
 //' @seealso
 //' \code{\link{data.frame}}, \code{\link{Dates}}, \code{\link[base:factor]{ordered factor}}.
@@ -534,18 +542,8 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 //' get_prev_result(Blackmore)
 //'   # Previous test result as column of data frame
 //' (Blackmore <- add_prev_result(Blackmore)) |> head(32)
-//'   # Difference between levels of current and previous results as integer vector
-//' (diffs <- with(Blackmore, as.integer(result) - as.integer(prev_result)))
-//'   # Differences as data frame column "transition"
-//' Blackmore$transition <- diffs
-//' Blackmore |> head(32)
-//'   # More esoteric, user-defined function of the differences as integer vector
-//' (diffs2 <- with(Blackmore, as.integer((abs(transition) + 1) / 3) * sign(transition)))
-//'   # Function range as data frame column "transition2"
-//' Blackmore$transition2 <- diffs2
-//' Blackmore |> head(36)
 //'
-//' rm(Blackmore, diffs, diffs2)
+//' rm(Blackmore)
 //'
 // [[Rcpp::export]]
 DataFrame add_prev_result(DataFrame object, const char* subject = "subject", const char* timepoint = "timepoint", const char* result = "result")

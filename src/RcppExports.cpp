@@ -11,8 +11,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // add_transitions
-DataFrame add_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, const char* transition, int method);
-RcppExport SEXP _Transition_add_transitions(SEXP objectSEXP, SEXP subjectSEXP, SEXP timepointSEXP, SEXP resultSEXP, SEXP transitionSEXP, SEXP methodSEXP) {
+DataFrame add_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, const char* transition, int cap, int modulate);
+RcppExport SEXP _Transition_add_transitions(SEXP objectSEXP, SEXP subjectSEXP, SEXP timepointSEXP, SEXP resultSEXP, SEXP transitionSEXP, SEXP capSEXP, SEXP modulateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -21,14 +21,15 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const char* >::type timepoint(timepointSEXP);
     Rcpp::traits::input_parameter< const char* >::type result(resultSEXP);
     Rcpp::traits::input_parameter< const char* >::type transition(transitionSEXP);
-    Rcpp::traits::input_parameter< int >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(add_transitions(object, subject, timepoint, result, transition, method));
+    Rcpp::traits::input_parameter< int >::type cap(capSEXP);
+    Rcpp::traits::input_parameter< int >::type modulate(modulateSEXP);
+    rcpp_result_gen = Rcpp::wrap(add_transitions(object, subject, timepoint, result, transition, cap, modulate));
     return rcpp_result_gen;
 END_RCPP
 }
 // get_transitions
-IntegerVector get_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, int method);
-RcppExport SEXP _Transition_get_transitions(SEXP objectSEXP, SEXP subjectSEXP, SEXP timepointSEXP, SEXP resultSEXP, SEXP methodSEXP) {
+IntegerVector get_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, int cap, int modulate);
+RcppExport SEXP _Transition_get_transitions(SEXP objectSEXP, SEXP subjectSEXP, SEXP timepointSEXP, SEXP resultSEXP, SEXP capSEXP, SEXP modulateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,8 +37,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const char* >::type subject(subjectSEXP);
     Rcpp::traits::input_parameter< const char* >::type timepoint(timepointSEXP);
     Rcpp::traits::input_parameter< const char* >::type result(resultSEXP);
-    Rcpp::traits::input_parameter< int >::type method(methodSEXP);
-    rcpp_result_gen = Rcpp::wrap(get_transitions(object, subject, timepoint, result, method));
+    Rcpp::traits::input_parameter< int >::type cap(capSEXP);
+    Rcpp::traits::input_parameter< int >::type modulate(modulateSEXP);
+    rcpp_result_gen = Rcpp::wrap(get_transitions(object, subject, timepoint, result, cap, modulate));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -113,8 +115,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_Transition_add_transitions", (DL_FUNC) &_Transition_add_transitions, 6},
-    {"_Transition_get_transitions", (DL_FUNC) &_Transition_get_transitions, 5},
+    {"_Transition_add_transitions", (DL_FUNC) &_Transition_add_transitions, 7},
+    {"_Transition_get_transitions", (DL_FUNC) &_Transition_get_transitions, 6},
     {"_Transition_add_prev_date", (DL_FUNC) &_Transition_add_prev_date, 4},
     {"_Transition_get_prev_date", (DL_FUNC) &_Transition_get_prev_date, 4},
     {"_Transition_add_prev_result", (DL_FUNC) &_Transition_add_prev_result, 4},

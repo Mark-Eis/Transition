@@ -50,11 +50,6 @@ in a longitudinal study.
 }
 \details{
 See \code{\link{Transitions}} \emph{details}.
-
-Differences between levels of a result and the previous result for the same subject may easily be
-calculated as an alternative to using \code{\link{add_transitions}()} or
-\code{\link{get_transitions}()}, allowing application of any user-defined function to these
-differences, see \emph{examples}.
 }
 \examples{
 
@@ -70,18 +65,8 @@ Blackmore |> str()
 get_prev_result(Blackmore)
   # Previous test result as column of data frame
 (Blackmore <- add_prev_result(Blackmore)) |> head(32)
-  # Difference between levels of current and previous results as integer vector
-(diffs <- with(Blackmore, as.integer(result) - as.integer(prev_result)))
-  # Differences as data frame column "transition"
-Blackmore$transition <- diffs
-Blackmore |> head(32)
-  # More esoteric, user-defined function of the differences as integer vector
-(diffs2 <- with(Blackmore, as.integer((abs(transition) + 1) / 3) * sign(transition)))
-  # Function range as data frame column "transition2"
-Blackmore$transition2 <- diffs2
-Blackmore |> head(36)
 
-rm(Blackmore, diffs, diffs2)
+rm(Blackmore)
 
 }
 \seealso{

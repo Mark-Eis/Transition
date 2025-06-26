@@ -28,8 +28,12 @@
 #' (see \emph{Note}).
 #'
 #' Temporal transitions in the test \code{results} for each \code{subject} within the \code{object}
-#' \code{\link{data.frame}} are characterised using one of various methods choosen using option
-#' \code{method}.
+#' \code{\link{data.frame}} are characterised using methods governed by options \code{cap} and
+#' \code{modulate}. If these two parameters are both zero (their defaults), a simple arithmetic
+#' difference between the levels of the present and previous result is calculated. Otherwise, if
+#' the value of \code{modulate} is a positive, non-zero integer, the arithmetic difference is
+#' subjected to integer division by that value. Finally, if \code{cap} is a positive, non-zero
+#' integer, the (possibly moudulated) arithmetic difference is capped at that value.
 #'
 #' @family transitions
 #' @seealso
@@ -50,8 +54,9 @@
 #' @param transition \code{character}, name to be used for a new column (of type
 #'   \code{\link{integer}}) to record transitions; default \code{"transition"}.
 #'
-#' @param method \code{\link{integer}}, \code{1L}, \code{2L}, ... \code{5L}, specifying the method
-#'   required for calculating transitions; default \code{1L}.
+#' @param cap \code{\link{integer}}, required for calculating transitions; default \code{0L}.
+#'
+#' @param modulate \code{\link{integer}}, required for calculating transitions; default \code{0L}.
 #'
 #' @return
 #'
@@ -91,56 +96,28 @@
 #' )
 #'   # subject, timepoint and result arguments now as defaults and required types
 #' Blackmore |> str()
-#'   # Integer vector of test result transitions (default method 1)
+#'   # Integer vector of test result transitions (defaults to cap = 0, modulate = 0)
 #' get_transitions(Blackmore)
+#'   # Tabulate values of transitions
+#' get_transitions(Blackmore) |> table()
+#'   # Effect of cap argument
+#' get_transitions(Blackmore, cap = 6) |> table()
+#'   # Effect of modulate argument
+#' get_transitions(Blackmore, modulate = 2) |> table()
 #'   # Add column of test result transitions to data frame
-#' add_transitions(Blackmore) |> head(32)
-#'   # Method 4, showing transitions as either positive (1) or negative (-1)
-#' add_transitions(Blackmore, method = 4) |> head(10)
+#' add_transitions(Blackmore) |> head(22)
+#'   # Showing transitions as either positive (1) or negative (-1) (defaults to modulate = 0)
+#' add_transitions(Blackmore, cap = 1) |> head(14)
 #'
 #' rm(Blackmore)
 #'
-#' ## Formatting numeric values as R dates
-#'
-#' #  Data frame containing year as numeric: 2018 to 2025
-#' (df <- data.frame(
-#'     subject = rep(1001:1002, 4),
-#'     timepoint = 2018:2025
-#'     ))
-#'
-#' #  Convert to R dates
-#' (df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
-#'
-#' # Format R dates to show just the year
-#' (df <- transform(df, year = format(timepoint, "%Y")))
-#'
-#' #  Data frame containing year and month as numeric: July 2024 to June 2025
-#' (df <- data.frame(
-#'            subject = rep(1001:1002, 6),
-#'            year = rep(2024:2025, each = 6),
-#'            month = c(7:12, 1:6)
-#'        ))
-#'
-#' #  Convert to R dates
-#' df <- transform(df, timepoint = as.Date(paste(year, month, "01", sep = "-")))
-#' \dontshow{
-#'     df$year <- NULL
-#'     df$month <- NULL
-#' }
-#' df
-#'
-#' # Format R dates to show just the month and year
-#' (df <- transform(df, month_year = format(timepoint, "%b-%Y")))
-#'
-#' rm(df)
-#'
-add_transitions <- function(object, subject = "subject", timepoint = "timepoint", result = "result", transition = "transition", method = 1L) {
-    .Call(`_Transition_add_transitions`, object, subject, timepoint, result, transition, method)
+add_transitions <- function(object, subject = "subject", timepoint = "timepoint", result = "result", transition = "transition", cap = 0L, modulate = 0L) {
+    .Call(`_Transition_add_transitions`, object, subject, timepoint, result, transition, cap, modulate)
 }
 
 #' @rdname Transitions
-get_transitions <- function(object, subject = "subject", timepoint = "timepoint", result = "result", method = 1L) {
-    .Call(`_Transition_get_transitions`, object, subject, timepoint, result, method)
+get_transitions <- function(object, subject = "subject", timepoint = "timepoint", result = "result", cap = 0L, modulate = 0L) {
+    .Call(`_Transition_get_transitions`, object, subject, timepoint, result, cap, modulate)
 }
 
 #' @title
@@ -191,6 +168,41 @@ get_transitions <- function(object, subject = "subject", timepoint = "timepoint"
 #'
 #' rm(Blackmore)
 #'
+#' ###
+#' ## Example on formatting numeric values as R dates
+#'
+#' #  Data frame containing year as numeric: 2018 to 2025
+#' (df <- data.frame(
+#'     subject = rep(1001:1002, 4),
+#'     timepoint = 2018:2025
+#'     ))
+#'
+#' #  Convert to R dates
+#' (df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
+#'
+#' # Format R dates to show just the year
+#' (df <- transform(df, year = format(timepoint, "%Y")))
+#'
+#' #  Data frame containing year and month as numeric: July 2024 to June 2025
+#' (df <- data.frame(
+#'            subject = rep(1001:1002, 6),
+#'            year = rep(2024:2025, each = 6),
+#'            month = c(7:12, 1:6)
+#'        ))
+#'
+#' #  Convert to R dates
+#' df <- transform(df, timepoint = as.Date(paste(year, month, "01", sep = "-")))
+#' \dontshow{
+#'     df$year <- NULL
+#'     df$month <- NULL
+#' }
+#' df
+#'
+#' # Format R dates to show just the month and year
+#' (df <- transform(df, month_year = format(timepoint, "%b-%Y")))
+#'
+#' rm(df)
+#'
 add_prev_date <- function(object, subject = "subject", timepoint = "timepoint", result = "result") {
     .Call(`_Transition_add_prev_date`, object, subject, timepoint, result)
 }
@@ -214,11 +226,6 @@ get_prev_date <- function(object, subject = "subject", timepoint = "timepoint", 
 #'
 #' @details
 #' See \code{\link{Transitions}} \emph{details}.
-#'
-#' Differences between levels of a result and the previous result for the same subject may easily be
-#' calculated as an alternative to using \code{\link{add_transitions}()} or
-#' \code{\link{get_transitions}()}, allowing application of any user-defined function to these
-#' differences, see \emph{examples}.
 #'
 #' @family transitions
 #' @seealso
@@ -250,18 +257,8 @@ get_prev_date <- function(object, subject = "subject", timepoint = "timepoint", 
 #' get_prev_result(Blackmore)
 #'   # Previous test result as column of data frame
 #' (Blackmore <- add_prev_result(Blackmore)) |> head(32)
-#'   # Difference between levels of current and previous results as integer vector
-#' (diffs <- with(Blackmore, as.integer(result) - as.integer(prev_result)))
-#'   # Differences as data frame column "transition"
-#' Blackmore$transition <- diffs
-#' Blackmore |> head(32)
-#'   # More esoteric, user-defined function of the differences as integer vector
-#' (diffs2 <- with(Blackmore, as.integer((abs(transition) + 1) / 3) * sign(transition)))
-#'   # Function range as data frame column "transition2"
-#' Blackmore$transition2 <- diffs2
-#' Blackmore |> head(36)
 #'
-#' rm(Blackmore, diffs, diffs2)
+#' rm(Blackmore)
 #'
 add_prev_result <- function(object, subject = "subject", timepoint = "timepoint", result = "result") {
     .Call(`_Transition_add_prev_result`, object, subject, timepoint, result)
