@@ -481,7 +481,7 @@ IntegerVector get_transitions(
 //' df
 //'
 //' # Format R dates to show just the month and year
-//' transform(df, month_year = format(timepoint, "%b-%Y")))
+//' transform(df, month_year = format(timepoint, "%b-%Y"))
 //'
 //' rm(df)
 //'
