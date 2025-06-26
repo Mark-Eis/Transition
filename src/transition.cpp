@@ -97,12 +97,12 @@ inline int adjust(int diff, int cap, int divisor)
 //	cout << "@adjust(int) diff " << diff << endl;
 	if (cap < 0 || divisor < 0)
 		throw std::invalid_argument("\"cap\" and \"divisor\" must both be positive integers");
-    bool neg = std::signbit(diff);
+	bool neg = std::signbit(diff);
 	diff = abs(diff);
 	if (divisor > 1)
 		diff = (diff + 1) / divisor;
 	if (bool(cap))
-	diff = (diff < cap) ? diff : cap;
+		diff = (diff < cap) ? diff : cap;
 	return neg ? diff *= -1 : diff;
 }
 
@@ -201,13 +201,7 @@ vector<int> Transitiondata::get_transition(int cap, int divisor) const
 	auto previous { prev_result() };
 	std::vector<int> transitions(nrows);
 	transform(previous.begin(), previous.end(), testresult.begin(), transitions.begin(),
-		[cap, divisor](int prev, int curr)
-		{
-			if (NA_INTEGER == prev)
-				return NA_INTEGER;
-			else 
-				return adjust(curr - prev, cap, divisor);
-		}
+		[cap, divisor](int prev, int curr) { return (NA_INTEGER == prev) ? NA_INTEGER : adjust(curr - prev, cap, divisor); }
 	);
 	return transitions;
 }
