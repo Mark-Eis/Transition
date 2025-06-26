@@ -75,7 +75,6 @@ int colpos(const DataFrame object, const char* colname)
 //	cout << "@colpos(const DataFrame, const char*) name is " << colname << endl;
 	if (!object.containsElementNamed(colname))
 		stop("No column named \"%s\" in data frame", colname);
-//		throw Rcpp::exception("No column named \"%s\" in data frame", colname);
 	return object.offset(colname);
 }
 
@@ -92,22 +91,19 @@ vector<T> get_unique(const vector<T> vec)
 	return out;
 }
 
-
-// Narrow the difference, symmetrically
-inline int angust(int diff, int cutoff)
-{
-//	cout << "@angust(int, int) diff " << diff << "; cutoff " << cutoff << endl;
-	int out { abs(diff) < cutoff ? abs(diff) : cutoff};
-	return std::signbit(diff) ? out *= -1 : out;
-}
-
-
 // Adjust the difference,symmetrically
-inline int adjust(int diff)
+inline int adjust(int diff, int cap, int divisor)
 {
 //	cout << "@adjust(int) diff " << diff << endl;
-	int out = (abs(diff) + 1) / 2;
-	return std::signbit(diff) ? out *= -1 : out;
+	if (cap < 0 || divisor < 0)
+		throw std::invalid_argument("\"cap\" and \"divisor\" must both be positive integers");
+    bool neg = std::signbit(diff);
+	diff = abs(diff);
+	if (divisor > 1)
+		diff = (diff + 1) / divisor;
+	if (bool(cap))
+	diff = (diff < cap) ? diff : cap;
+	return neg ? diff *= -1 : diff;
 }
 
 
@@ -188,36 +184,29 @@ vector<int> Transitiondata::prev_result() const
 
 
 // Add transitions column to data frame
-DataFrame Transitiondata::add_transition(const char* colname, int method)
+DataFrame Transitiondata::add_transition(const char* colname, int cap, int divisor)
 {
 //	cout << "@Transitiondata::add_transition(int)\n";
 	if (df.containsElementNamed(colname))
 		stop("Data frame already has column named \"%s\", try another name", colname);
- 	df.push_back(get_transition(method), colname);
+ 	df.push_back(get_transition(cap, divisor), colname);
 	return df;
 }
 
 
 // Return transitions vector
-vector<int> Transitiondata::get_transition(int method) const
+vector<int> Transitiondata::get_transition(int cap, int divisor) const
 {
 //	cout << "@Transitiondata::get_transition(int) method = " << method << endl;
-	if (method < 1 || method > 5)
-		stop("\"method\" must be between 1 and 5");
 	auto previous { prev_result() };
 	std::vector<int> transitions(nrows);
 	transform(previous.begin(), previous.end(), testresult.begin(), transitions.begin(),
-		[method](int prev, int curr)
+		[cap, divisor](int prev, int curr)
 		{
 			if (NA_INTEGER == prev)
 				return NA_INTEGER;
-			else {
-				int diff {curr - prev};
-				if (5 == method)
-					return adjust(diff);
-				else
-					return angust(diff, 5 - method);
-			}
+			else 
+				return adjust(curr - prev, cap, divisor);
 		}
 	);
 	return transitions;
@@ -381,12 +370,13 @@ DataFrame add_transitions(
 	const char* timepoint = "timepoint",
 	const char* result = "result",
 	const char* transition = "transition",
-	int method = 1)
+	int cap = 0,
+	int divisor = 0)
 {
 //	cout << "——Rcpp::export——add_transitions(DataFrame, const char*, const char*, const char*, const char*, int) subject " << subject
 //		 << "; timepoint " << timepoint << "; result " << result << "; transition " << transition << endl;
 	try {
-		return Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).add_transition(transition, method);
+		return Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).add_transition(transition, cap, divisor);
 	} catch (exception& e) {
 		Rcerr << "Error in add_transitions(): " << e.what() << '\n';
 	} catch (std::invalid_argument& iva) {
@@ -403,12 +393,13 @@ IntegerVector get_transitions(
 	const char* subject = "subject",
 	const char* timepoint = "timepoint",
 	const char* result = "result",
-	int method = 1)
+	int cap = 0,
+	int divisor = 0)
 {
 //	cout << "——Rcpp::export——get_transitions(DataFrame, const char*, const char*, const char*, int) subject " << subject
 //		 << "; timepoint " << timepoint << "; result " << result << endl;
 	try {
-		return wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).get_transition(method));
+		return wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).get_transition(cap, divisor));
 	} catch (exception& e) {
 		Rcerr << "Error in get_transitions(): " << e.what() << '\n';
 	} catch (std::invalid_argument& iva) {

@@ -27,8 +27,7 @@ inline std::string str_tolower(std::string);
 int colpos(const DataFrame, const char*);
 template<class T>
 std::vector<T> get_unique(const std::vector<T>);
-inline int angust(int, int);
-inline int adjust(int);
+inline int adjust(int, int, int);
 
 /// Class Transitiondata
 
@@ -60,8 +59,8 @@ public:
 	double get_prevdate(int, double) const;
 	std::vector<double> prev_date() const;
 	std::vector<int> prev_result() const;
-	DataFrame add_transition(const char* colname, int);
-	std::vector<int> get_transition(int) const;
+	DataFrame add_transition(const char* colname, int, int);
+	std::vector<int> get_transition(int, int) const;
 };
 
 
@@ -70,8 +69,8 @@ inline IntegerVector prevres_intvec(DataFrame, const char*, const char*, const c
 
 
 // Exported
-DataFrame add_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, const char* transition, int method); 
-IntegerVector get_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, int method); 
+DataFrame add_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, const char* transition, int cap, int divisor); 
+IntegerVector get_transitions(DataFrame object, const char* subject, const char* timepoint, const char* result, int cap, int divisor); 
 DataFrame add_prev_date(DataFrame object, const char* subject, const char* timepoint, const char* result);
 DateVector get_prev_date(DataFrame object, const char* subject, const char* timepoint, const char* result);
 DataFrame add_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result);
