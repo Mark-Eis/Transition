@@ -305,10 +305,14 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //'
 //'   # Inspect Blackmore data frame using {base} str()
 //' Blackmore |> str()
-//'   # {base} hist() gives insights into "exercise" column, useful for {base} cut() below
+//'
+//'   # {base} hist() gives insights into the "exercise" column,
+//'   #   useful for choosing `breaks` and `labels` in cut() below
 //' hist(Blackmore$exercise, include.lowest = TRUE, plot = FALSE)[1:2]
-//'   # Convert "age" to dates for timepoint argument, using arbitrary "origin" 1-Jan-2000,
-//'   # and convert exercise to ordered factor "result" using cut()
+//'
+//'   # Tweak Blackmore data frame by converting "age" to dates for the argument
+//'   #   timepoint (using an arbitrary "origin" of 1-Jan-2000), and converting
+//'   #   "exercise" to an ordered factor "result" with {base} cut()
 //' Blackmore <- transform(Blackmore,
 //'     timepoint = as.Date("2000-01-01") + round(age * 365.25),
 //'     result = cut(
@@ -319,19 +323,27 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //'         ordered_result = TRUE
 //'     )
 //' )
-//'   # subject, timepoint and result arguments now as defaults and required types
+//'
+//'   # subject, timepoint and result arguments now defaults and required types
 //' Blackmore |> str()
-//'   # Integer vector of test result transitions (defaults to cap = 0, modulate = 0)
+//'
+//'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
 //' get_transitions(Blackmore)
+//'
 //'   # Tabulate values of transitions
 //' get_transitions(Blackmore) |> table()
+//'
 //'   # Effect of cap argument
 //' get_transitions(Blackmore, cap = 6) |> table()
+//'
 //'   # Effect of modulate argument
 //' get_transitions(Blackmore, modulate = 2) |> table()
+//'
 //'   # Add column of test result transitions to data frame
 //' add_transitions(Blackmore) |> head(22)
-//'   # Showing transitions as either positive (1) or negative (-1) (defaults to modulate = 0)
+//'
+//'   # Showing transitions as either positive (1) or negative (-1)
+//'   #   (defaults to modulate = 0)
 //' add_transitions(Blackmore, cap = 1) |> head(14)
 //'
 //' rm(Blackmore)
@@ -420,11 +432,14 @@ IntegerVector get_transitions(
 //'     result = cut(exercise, breaks = seq(0, 30, 2), labels = paste0("<=", seq(0, 30, 2)[-1]),
 //'         include.lowest = TRUE, ordered_result = TRUE))
 //' }
-//'  ## Continuing example from `add_transitions`
-//'   # subject, timepoint and result arguments all as defaults and required types
+//'
+//'  ## Continuing example from `add_transitions()`
+//'   # subject, timepoint and result arguments all defaults and required types
 //' Blackmore |> str()
+//'
 //'   # Integer vector of the previous test dates
 //' get_prev_date(Blackmore)
+//'
 //'   # Add column of  previous test dates to data frame
 //' add_prev_date(Blackmore) |> head(32)
 //'
@@ -440,7 +455,10 @@ IntegerVector get_transitions(
 //'     ))
 //'
 //' #  Convert to R dates
-//' (df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
+//' (df <- transform(df,
+//'            timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))
+//'        )
+//' )
 //'
 //' # Format R dates to show just the year
 //' (df <- transform(df, year = format(timepoint, "%Y")))
@@ -535,11 +553,14 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 //'     result = cut(exercise, breaks = seq(0, 30, 2), labels = paste0("<=", seq(0, 30, 2)[-1]),
 //'         include.lowest = TRUE, ordered_result = TRUE))
 //' }
-//'  ## Continuing example from `add_transitions`
-//'   # subject, timepoint and result arguments all as defaults and required types
+//'
+//'  ## Continuing example from `add_transitions()`
+//'   # subject, timepoint and result arguments all defaults and required types
 //' Blackmore |> str()
+//'
 //'   # Previous test results as ordered factor
 //' get_prev_result(Blackmore)
+//'
 //'   # Previous test result as column of data frame
 //' (Blackmore <- add_prev_result(Blackmore)) |> head(32)
 //'
@@ -616,8 +637,9 @@ IntegerVector get_prev_result(DataFrame object, const char* subject = "subject",
 //'     result = cut(exercise, breaks = seq(0, 30, 2), labels = paste0("<=", seq(0, 30, 2)[-1]),
 //'         include.lowest = TRUE, ordered_result = TRUE))
 //' }
-//'  ## Continuing example from `add_transitions`
-//'   # subject, timepoint and result arguments all as defaults and required types
+//'
+//'  ## Continuing example from `add_transitions()`
+//'   # subject, timepoint and result arguments all defaults and required types
 //'   # (native subject is factor)
 //' uniques(Blackmore)
 //'   #

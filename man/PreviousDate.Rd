@@ -57,11 +57,14 @@ Blackmore <- transform(Blackmore, timepoint = as.Date("2000-01-01") + round(age 
     result = cut(exercise, breaks = seq(0, 30, 2), labels = paste0("<=", seq(0, 30, 2)[-1]),
         include.lowest = TRUE, ordered_result = TRUE))
 }
- ## Continuing example from `add_transitions`
-  # subject, timepoint and result arguments all as defaults and required types
+
+ ## Continuing example from `add_transitions()`
+  # subject, timepoint and result arguments all defaults and required types
 Blackmore |> str()
+
   # Integer vector of the previous test dates
 get_prev_date(Blackmore)
+
   # Add column of  previous test dates to data frame
 add_prev_date(Blackmore) |> head(32)
 
@@ -77,7 +80,10 @@ rm(Blackmore)
     ))
 
 #  Convert to R dates
-(df <- transform(df, timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))))
+(df <- transform(df,
+           timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))
+       )
+)
 
 # Format R dates to show just the year
 (df <- transform(df, year = format(timepoint, "\%Y")))

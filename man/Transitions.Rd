@@ -94,10 +94,14 @@ Quantitive results available as \code{\link{numeric}} data can be converted to a
 
   # Inspect Blackmore data frame using {base} str()
 Blackmore |> str()
-  # {base} hist() gives insights into "exercise" column, useful for {base} cut() below
+
+  # {base} hist() gives insights into the "exercise" column,
+  #   useful for choosing `breaks` and `labels` in cut() below
 hist(Blackmore$exercise, include.lowest = TRUE, plot = FALSE)[1:2]
-  # Convert "age" to dates for timepoint argument, using arbitrary "origin" 1-Jan-2000,
-  # and convert exercise to ordered factor "result" using cut()
+
+  # Tweak Blackmore data frame by converting "age" to dates for the argument
+  #   timepoint (using an arbitrary "origin" of 1-Jan-2000), and converting
+  #   "exercise" to an ordered factor "result" with {base} cut()
 Blackmore <- transform(Blackmore,
     timepoint = as.Date("2000-01-01") + round(age * 365.25),
     result = cut(
@@ -108,19 +112,27 @@ Blackmore <- transform(Blackmore,
         ordered_result = TRUE
     )
 )
-  # subject, timepoint and result arguments now as defaults and required types
+
+  # subject, timepoint and result arguments now defaults and required types
 Blackmore |> str()
-  # Integer vector of test result transitions (defaults to cap = 0, modulate = 0)
+
+  # Integer vector of test result transitions (defaults: cap = modulate = 0)
 get_transitions(Blackmore)
+
   # Tabulate values of transitions
 get_transitions(Blackmore) |> table()
+
   # Effect of cap argument
 get_transitions(Blackmore, cap = 6) |> table()
+
   # Effect of modulate argument
 get_transitions(Blackmore, modulate = 2) |> table()
+
   # Add column of test result transitions to data frame
 add_transitions(Blackmore) |> head(22)
-  # Showing transitions as either positive (1) or negative (-1) (defaults to modulate = 0)
+
+  # Showing transitions as either positive (1) or negative (-1)
+  #   (defaults to modulate = 0)
 add_transitions(Blackmore, cap = 1) |> head(14)
 
 rm(Blackmore)
