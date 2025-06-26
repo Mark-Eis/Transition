@@ -372,98 +372,184 @@ recording test results; default <code>"result"</code>.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#  Data frame containing year as numeric: 2018 to 2025</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1001</span><span class="op">:</span><span class="fl">1002</span>, <span class="fl">4</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    timepoint <span class="op">=</span> <span class="fl">2018</span><span class="op">:</span><span class="fl">2025</span></span></span>
+<span class="r-in"><span>    subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1001</span><span class="op">:</span><span class="fl">1003</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    timepoint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2018</span><span class="op">:</span><span class="fl">2025</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    result <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, lab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"jolly"</span>, <span class="st">"good"</span>, <span class="st">"show"</span><span class="op">)</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subject timepoint</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1001      2018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1002      2019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1001      2020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1002      2021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1001      2022</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1002      2023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1001      2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1002      2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    subject timepoint result</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001      2018  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002      2018  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1003      2018  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1001      2019  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1002      2019   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1003      2019   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001      2020   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002      2020   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1003      2020   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1001      2021   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1002      2021   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1003      2021   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1001      2022  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1002      2022  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1003      2022  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1001      2023  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1002      2023   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1003      2023   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1001      2024   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1002      2024   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1003      2024   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1001      2025   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1002      2025   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1003      2025   show</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#  Convert to R dates</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>,</span></span>
 <span class="r-in"><span>           timepoint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"01"</span>, <span class="st">"01"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>       <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subject  timepoint</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1001 2018-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1002 2019-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1001 2020-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1002 2021-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1001 2022-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1002 2023-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1001 2024-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1002 2025-01-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    subject  timepoint result</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001 2018-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002 2018-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1003 2018-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1001 2019-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1002 2019-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1003 2019-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001 2020-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002 2020-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1003 2020-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1001 2021-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1002 2021-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1003 2021-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1001 2022-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1002 2022-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1003 2022-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1001 2023-01-01  jolly</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1002 2023-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1003 2023-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1001 2024-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1002 2024-01-01   good</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1003 2024-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1001 2025-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1002 2025-01-01   show</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1003 2025-01-01   show</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Format R dates to show just the year</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subject  timepoint year</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    1001 2018-01-01 2018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    1002 2019-01-01 2019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    1001 2020-01-01 2020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    1002 2021-01-01 2021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    1001 2022-01-01 2022</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    1002 2023-01-01 2023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7    1001 2024-01-01 2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8    1002 2025-01-01 2025</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    subject  timepoint result year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001 2018-01-01  jolly 2018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002 2018-01-01  jolly 2018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1003 2018-01-01  jolly 2018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1001 2019-01-01  jolly 2019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1002 2019-01-01   good 2019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1003 2019-01-01   good 2019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001 2020-01-01   good 2020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002 2020-01-01   good 2020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1003 2020-01-01   show 2020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1001 2021-01-01   show 2021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1002 2021-01-01   show 2021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1003 2021-01-01   show 2021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1001 2022-01-01  jolly 2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1002 2022-01-01  jolly 2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1003 2022-01-01  jolly 2022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1001 2023-01-01  jolly 2023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1002 2023-01-01   good 2023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1003 2023-01-01   good 2023</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1001 2024-01-01   good 2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1002 2024-01-01   good 2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1003 2024-01-01   show 2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1001 2025-01-01   show 2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1002 2025-01-01   show 2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1003 2025-01-01   show 2025</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#  Data frame containing year and month as numeric: July 2024 to June 2025</span></span></span>
 <span class="r-in"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>           subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1001</span><span class="op">:</span><span class="fl">1002</span>, <span class="fl">6</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">:</span><span class="fl">2025</span>, each <span class="op">=</span> <span class="fl">6</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>           month <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span></span></span>
+<span class="r-in"><span>           subject <span class="op">=</span> <span class="fl">1001</span><span class="op">:</span><span class="fl">1002</span>,</span></span>
+<span class="r-in"><span>           year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">2024</span><span class="op">:</span><span class="fl">2025</span>, each <span class="op">=</span> <span class="fl">12</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           month <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">7</span><span class="op">:</span><span class="fl">12</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>           result <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/gl.html" class="external-link">gl</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, lab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"low"</span>, <span class="st">"high"</span><span class="op">)</span>, ordered <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span>       <span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    subject year month</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001 2024     7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002 2024     8</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1001 2024     9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1002 2024    10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1001 2024    11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1002 2024    12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001 2025     1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002 2025     2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1001 2025     3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1002 2025     4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1001 2025     5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1002 2025     6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    subject year month result</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001 2024     7    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002 2024     7    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1001 2024     8    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1002 2024     8   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1001 2024     9   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1002 2024     9   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001 2024    10    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002 2024    10    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1001 2024    11    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1002 2024    11   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1001 2024    12   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1002 2024    12   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1001 2025     1    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1002 2025     1    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1001 2025     2    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1002 2025     2   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1001 2025     3   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1002 2025     3   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1001 2025     4    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1002 2025     4    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1001 2025     5    low</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1002 2025     5   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1001 2025     6   high</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1002 2025     6   high</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#  Convert to R dates</span></span></span>
 <span class="r-in"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, timepoint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="st">"01"</span>, sep <span class="op">=</span> <span class="st">"-"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">df</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    subject  timepoint</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001 2024-07-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002 2024-08-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1001 2024-09-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1002 2024-10-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1001 2024-11-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1002 2024-12-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001 2025-01-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002 2025-02-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1001 2025-03-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1002 2025-04-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1001 2025-05-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1002 2025-06-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    subject result  timepoint</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001    low 2024-07-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002    low 2024-07-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1001    low 2024-08-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1002   high 2024-08-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1001   high 2024-09-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1002   high 2024-09-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001    low 2024-10-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002    low 2024-10-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1001    low 2024-11-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1002   high 2024-11-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1001   high 2024-12-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1002   high 2024-12-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1001    low 2025-01-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1002    low 2025-01-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1001    low 2025-02-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1002   high 2025-02-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1001   high 2025-03-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1002   high 2025-03-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1001    low 2025-04-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1002    low 2025-04-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1001    low 2025-05-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1002   high 2025-05-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1001   high 2025-06-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1002   high 2025-06-01</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Format R dates to show just the month and year</span></span></span>
-<span class="r-in"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, month_year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"%b-%Y"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    subject  timepoint month_year</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001 2024-07-01   Jul-2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002 2024-08-01   Aug-2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1001 2024-09-01   Sep-2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1002 2024-10-01   Oct-2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1001 2024-11-01   Nov-2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1002 2024-12-01   Dec-2024</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001 2025-01-01   Jan-2025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002 2025-02-01   Feb-2025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1001 2025-03-01   Mar-2025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1002 2025-04-01   Apr-2025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1001 2025-05-01   May-2025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1002 2025-06-01   Jun-2025</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, month_year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"%b-%Y"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    subject result  timepoint month_year</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1     1001    low 2024-07-01   Jul-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2     1002    low 2024-07-01   Jul-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     1001    low 2024-08-01   Aug-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     1002   high 2024-08-01   Aug-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5     1001   high 2024-09-01   Sep-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6     1002   high 2024-09-01   Sep-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7     1001    low 2024-10-01   Oct-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8     1002    low 2024-10-01   Oct-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     1001    low 2024-11-01   Nov-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10    1002   high 2024-11-01   Nov-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11    1001   high 2024-12-01   Dec-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12    1002   high 2024-12-01   Dec-2024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13    1001    low 2025-01-01   Jan-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14    1002    low 2025-01-01   Jan-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15    1001    low 2025-02-01   Feb-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16    1002   high 2025-02-01   Feb-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17    1001   high 2025-03-01   Mar-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18    1002   high 2025-03-01   Mar-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19    1001    low 2025-04-01   Apr-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20    1002    low 2025-04-01   Apr-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21    1001    low 2025-05-01   May-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22    1002   high 2025-05-01   May-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23    1001   high 2025-06-01   Jun-2025</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24    1002   high 2025-06-01   Jun-2025</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html" class="external-link">rm</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
