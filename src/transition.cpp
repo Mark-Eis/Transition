@@ -109,22 +109,49 @@ inline int adjust(int diff, int cap, int modulate)
 /// Class Transitiondata
 
 // Ctor auxilliary function
-	template<typename T>
-	T Transitiondata::typechecker(int colno, int arg)
-	{	
-//		cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
-		bool ordfct(true);
-		if (3 == arg) {
-			RObject colobj { df[colno] };
-			if (!(colobj.inherits("factor") && colobj.inherits("ordered")))
-				ordfct = false;
-		}
-		if (!(is<T>(df[colno]) && ordfct)) {
-			std::vector<string> typestr {"data.frame", "integer or factor", "Date", "ordered factor" };
-			throw std::invalid_argument(std::string("column `") + vector<string>(df.names())[colno] + "` not of type " + typestr[arg]);
-		}
-		return df[colno];
+template<typename T>
+T Transitiondata::typechecker(int colno, int arg)
+{	
+	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
+	std::string errstr("column `");
+	errstr += vector<string>(df.names())[colno] + "` is not of class ";
+	RObject colobj { df[colno] };
+	bool good = true;
+	switch (arg) {
+		case 0:
+			if (!(is<T>(df[colno])))
+				errstr += "data.frame";
+				good = false;
+			break;
+
+		case 1:
+			if (!(is<T>(df[colno]))) {
+				errstr += "integer or factor";
+				good = false;
+			}
+			break;
+
+		case 2:
+			if (!(is<T>(df[colno]))) {
+				errstr += "Date (or is an integer Date)";
+				good = false;
+			}
+			break;
+
+		case 3:
+			if (!(is<T>(df[colno]) && (colobj.inherits("factor") && colobj.inherits("ordered"))))
+				errstr += "ordered factor";
+				good = false;
+			break;
+
+			default:
+				stop("Transitiondata::typechecker<T>(int, int) my bad");
 	}
+	if (!good)
+		throw std::invalid_argument(errstr);
+	return df[colno];
+}
+
 
 // Test result for given subject and date
 int Transitiondata::get_result(int subject, double date) const
