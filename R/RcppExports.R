@@ -194,10 +194,12 @@ get_transitions <- function(object, subject = "subject", timepoint = "timepoint"
 #'     ))
 #'
 #' #  Convert to R dates
-#' (df <- transform(df,
+#' df <- transform(df,
 #'            timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))
-#'        )
-#' )
+#'       )
+#'
+#'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
+#' get_transitions(df)
 #'
 #' # Format R dates to show just the year
 #' transform(df, year = format(timepoint, "%Y"))
@@ -216,7 +218,9 @@ get_transitions <- function(object, subject = "subject", timepoint = "timepoint"
 #'     df$year <- NULL
 #'     df$month <- NULL
 #' }
-#' df
+#'
+#'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
+#' get_transitions(df)
 #'
 #' # Format R dates to show just the month and year
 #' transform(df, month_year = format(timepoint, "%b-%Y"))

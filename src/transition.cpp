@@ -527,7 +527,7 @@ IntegerVector get_transitions(
 //'       )
 //'
 //'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
-//' get_transitions(df)
+//' add_transitions(df)
 //'
 //' # Format R dates to show just the year
 //' transform(df, year = format(timepoint, "%Y"))
@@ -548,7 +548,7 @@ IntegerVector get_transitions(
 //' }
 //'
 //'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
-//' get_transitions(df)
+//' add_transitions(df)
 //'
 //' # Format R dates to show just the month and year
 //' transform(df, month_year = format(timepoint, "%b-%Y"))
