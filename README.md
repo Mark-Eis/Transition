@@ -3,7 +3,7 @@
 
 Analyse data from longitudinal studies to characterise changes in values of semi-quantitative
 outcome variables within individual subjects, using high performance C++ code to enable rapid
-processing of large datasets. A choice of methods is available for codifying these state transitions.
+processing of large datasets. A flexible methodology is available for codifying these state transitions.
 
 ## Installation
 
