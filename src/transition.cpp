@@ -527,10 +527,10 @@ IntegerVector get_transitions(
 //'       )
 //'
 //'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
-//' add_transitions(df)
+//' (df <- add_transitions(df))
 //'
 //' # Format R dates to show just the year
-//' transform(df, year = format(timepoint, "%Y"))
+//' transform(df, timepoint = format(timepoint, "%Y"))
 //'
 //' #  Data frame containing year and month as numeric: July 2024 to June 2025
 //' (df <- data.frame(
@@ -548,10 +548,10 @@ IntegerVector get_transitions(
 //' }
 //'
 //'   # Integer vector of test result transitions (defaults: cap = modulate = 0)
-//' add_transitions(df)
+//' (df <- add_transitions(df))
 //'
 //' # Format R dates to show just the month and year
-//' transform(df, month_year = format(timepoint, "%b-%Y"))
+//' transform(df, timepoint = format(timepoint, "%b-%Y"))
 //'
 //' rm(df)
 //'
