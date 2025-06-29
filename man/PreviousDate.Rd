@@ -85,10 +85,10 @@ df <- transform(df,
            timepoint = as.Date(paste(timepoint, "01", "01", sep = "-"))
       )
 
-  # Integer vector of test result transitions (defaults: cap = modulate = 0)
+  # Add column of test result transitions (defaults: cap = 0, modulate = 0)
 (df <- add_transitions(df))
 
-# Format R dates to show just the year
+# Format R dates just to show the year
 transform(df, timepoint = format(timepoint, "\%Y"))
 
 #  Data frame containing year and month as numeric: July 2024 to June 2025
@@ -106,10 +106,10 @@ df <- transform(df, timepoint = as.Date(paste(year, month, "01", sep = "-")))
     df$month <- NULL
 }
 
-  # Integer vector of test result transitions (defaults: cap = modulate = 0)
+  # Add column of test result transitions (defaults: cap = 0, modulate = 0)
 (df <- add_transitions(df))
 
-# Format R dates to show just the month and year
+# Format R dates just to show the month and year
 transform(df, timepoint = format(timepoint, "\%b-\%Y"))
 
 rm(df)
