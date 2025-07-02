@@ -324,10 +324,11 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //'    sequence of the \code{subject} and \code{timepoint} in \code{object}.}
 //'
 //' @note
-//' Time points represented by \code{\link{integer}} or \code{\link{numeric}} values can be converted to R
-//'   \code{Dates} conveniently using \code{\link{as.Date}()}. If only the year is available, consistent
-//'   arbitrary values for month and day e.g., the 1st of January, could be used; likewise, the first day
-//'   of each month could be used consistently, if only the year and month were known.
+//' Time points represented by \code{\link{integer}} or \code{\link{numeric}} values can be converted
+//'   to R \code{Dates} conveniently using \code{\link{as.Date}()}. If only \emph{year} information is
+//'   available, arbitrary values could be used consistently for month and day e.g., 1st of January of
+//'   each year; likewise, the first day of each month could be used arbitrary, if only the
+//'   \emph{year} and \emph{month} were known.
 //'
 //' Quantitive results available as \code{\link{numeric}} data can be converted to a semi-quantitative
 //'   \code{\link[base:factor]{ordered factor}} conveniently using \code{\link{cut}()} (see \emph{examples}).

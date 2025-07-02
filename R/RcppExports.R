@@ -68,13 +68,14 @@
 #'    sequence of the \code{subject} and \code{timepoint} in \code{object}.}
 #'
 #' @note
-#' Time points represented by \code{\link{integer}} or \code{\link{numeric}} values can be converted to R
-#'   \code{Dates} conveniently using \code{\link{as.Date}()}. If only the year is available, an arbitrary
-#'   value may be used consistently for month and day e.g., the 1st of January; likewise, the 1st day of the
-#'   month could be used if only the year and month are available (see \emph{examples}).
+#' Time points represented by \code{\link{integer}} or \code{\link{numeric}} values can be converted
+#'   to R \code{Dates} conveniently using \code{\link{as.Date}()}. If only \emph{year} information is
+#'   available, arbitrary values could be used consistently for month and day e.g., 1st of January of
+#'   each year; likewise, the first day of each month could be used arbitrary, if only the
+#'   \emph{year} and \emph{month} were known.
 #'
 #' Quantitive results available as \code{\link{numeric}} data can be converted to a semi-quantitative
-#'   \code{\link[base:factor]{ordered factor}} conveniently using \code{\link{cut}()}.
+#'   \code{\link[base:factor]{ordered factor}} conveniently using \code{\link{cut}()} (see \emph{examples}).
 #'
 #' @examples
 #'
