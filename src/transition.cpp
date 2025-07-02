@@ -112,7 +112,7 @@ inline int adjust(int diff, int cap, int modulate)
 template<typename T>
 T Transitiondata::typechecker(int colno, int arg)
 {	
-	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
+//	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
 	std::string errstr("column `");
 	errstr += vector<string>(df.names())[colno] + "` not ";
 	RObject colobj { df[colno] };
