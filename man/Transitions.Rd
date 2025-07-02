@@ -79,7 +79,7 @@ Temporal transitions in the test \code{results} for each \code{subject} within t
 difference between the levels of the present and previous result is calculated. Otherwise, if
 the value of \code{modulate} is a positive, non-zero integer, the arithmetic difference is
 subjected to integer division by that value. Finally, if \code{cap} is a positive, non-zero
-integer, the (possibly moudulated) arithmetic difference is capped at that value.
+integer, the (possibly modulated) absolute arithmetic difference is capped at that value.
 }
 \note{
 Time points represented by \code{\link{integer}} or \code{\link{numeric}} values can be converted to R
