@@ -1,7 +1,7 @@
 Package: Transition
 Type: Package
 Title: Characterise Transitions in Test Result Status in Longitudinal Studies
-Version: 1.0.0
+Version: 1.0.0.9000
 Date: 2025-06-28
 Authors@R: c(
     person("Mark", "Eisler", email = "mark.eisler@bristol.ac.uk", role = c("aut", "cre", "cph"),
