@@ -22,7 +22,7 @@ using std::vector;
 /// Report object construction and destruction
 void _ctrsgn(const std::type_info& obj, bool destruct)
 {
-//	cout << (destruct ? "Destroying " : "Constructing ") << std::flush;
+	cout << (destruct ? "Destroying " : "Constructing ") << std::flush;
 	string s { obj.name() };
 	system(("c++filt -t " + s).data());
 }
@@ -112,27 +112,38 @@ inline int adjust(int diff, int cap, int modulate)
 template<typename T>
 T Transitiondata::typechecker(int colno, int arg)
 {	
-//	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
+	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
 	std::string errstr("column `");
-	errstr += vector<string>(df.names())[colno] + "` is not of class ";
+	errstr += vector<string>(df.names())[colno] + "` not ";
 	RObject colobj { df[colno] };
 	bool good = is<T>(df[colno]);
 	switch (arg) {
 		case 0:
-			if (!good) errstr += "data.frame";
+			if (!good) errstr += " of class data.frame";
 			break;
 
 		case 1:
-			if (!good) errstr += "integer or factor";
+			if (!good) errstr += "an integer or factor";
 			break;
 
 		case 2:
-			if (!good) errstr += "Date (or is an integer Date)";
+			if (!good) {
+				if (colobj.inherits("Date")) {
+					if (!is<NumericVector>(colobj)) {
+						if (is<IntegerVector>(colobj)) {
+							warning(errstr + "of correct type: Date converted from integer to numeric");
+							df[colno] = as<NumericVector>(df[colno]);
+							good = true; 
+						}
+						errstr += "of class Date, type numeric";
+					}
+				} else errstr += " of class Date";
+			}
 			break;
 
 		case 3:
 			if (!(good && colobj.inherits("factor") && colobj.inherits("ordered"))) {
-				errstr += "ordered factor";
+				errstr += "an ordered factor";
 				good = false;
 			}
 			break;
