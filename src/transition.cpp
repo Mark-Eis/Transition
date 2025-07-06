@@ -11,6 +11,7 @@ using std::cout;
 using std::endl;
 using std::ostream;
 using std::string;
+using std::vector;
 
 
 /// __________________________________________________
@@ -50,11 +51,11 @@ ostream& operator<< (ostream& stream, const Demangler& d)
 /// __________________________________________________
 /// Return named attribute as vector<U> or empty vector<U>
 template<class T, class U>
-inline std::vector<U> get_vec_attr(const T& t, const char* attrname)
+inline vector<U> get_vec_attr(const T& t, const char* attrname)
 {
 //	cout << "@get_vec_attr<T, U>(const T&, const char*) attr \"" << attrname << "\" " << std::boolalpha << t.hasAttribute(attrname) << endl;
 	static_assert(std::is_same<NumericVector, T>::value || std::is_same<DataFrame, T>::value, "T must be NumericVector or DataFrame");
-	return t.hasAttribute(attrname) ? as<std::vector<U>>(t.attr(attrname)) : std::vector<U>();
+	return t.hasAttribute(attrname) ? as<vector<U>>(t.attr(attrname)) : vector<U>();
 }
 
 
@@ -80,10 +81,10 @@ int colpos(const DataFrame object, const char* colname)
 
 // Find unique values in vector
 template<class T>
-std::vector<T> get_unique(const std::vector<T> vec)
+vector<T> get_unique(const vector<T> vec)
 {
-//	cout << "@get_unique<T>(const std::vector<T>) vec " << Demangler(typeid(vec)) << endl;
-	std::vector<T> out { vec };
+//	cout << "@get_unique<T>(const vector<T>) vec " << Demangler(typeid(vec)) << endl;
+	vector<T> out { vec };
 	std::sort(out.begin(), out.end());
 	auto last { std::unique(out.begin(), out.end()) };
 	out.erase(last, out.end());
@@ -113,7 +114,7 @@ T Transitiondata::typechecker(int colno, int arg)
 {	
 //	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
 	std::string errstr("column `");
-	errstr += std::vector<string>(df.names())[colno] + "` not ";
+	errstr += vector<string>(df.names())[colno] + "` not ";
 	RObject colobj { df[colno] };
 	bool good = is<T>(df[colno]);
 	switch (arg) {
@@ -171,7 +172,7 @@ int Transitiondata::get_result(int subject, double date) const
 std::vector<double> Transitiondata::get_id_dates(int target) const
 {
 //	cout << "@Transitiondata::get_id_dates(int id) const target = " << target << endl;
-	std::vector<double> out;
+	vector<double> out;
 	for (int x { 0 }; x < nrows; ++x) {
 		if (id[x] == target)
 			out.push_back(testdate[x]);
@@ -192,20 +193,20 @@ double Transitiondata::get_prevdate(int subject, double date) const
 }
 
 // vector of the most recent previous date by subject
-std::vector<double> Transitiondata::prev_date() const
+vector<double> Transitiondata::prev_date() const
 {
 //	cout << "@Transitiondata::prev_date() const\n";
-	std::vector<double> previous(nrows);
+	vector<double> previous(nrows);
 	transform(id.begin(), id.end(), testdate.begin(), previous.begin(), [this](int id, double date){ return get_prevdate(id, date); });
 	return previous;
 }
 
 // vector of the most recent previous result by subject
-std::vector<int> Transitiondata::prev_result() const
+vector<int> Transitiondata::prev_result() const
 {
 //	cout << "@Transitiondata::prev_result() const\n";	
 	auto prevdate { prev_date() };
-	std::vector<int> prevres(nrows);
+	vector<int> prevres(nrows);
 	transform(id.begin(), id.end(), prevdate.begin(), prevres.begin(), [this](int id, double date){ return get_result(id, date); });
 	return prevres;
 }
@@ -223,7 +224,7 @@ DataFrame Transitiondata::add_transition(const char* colname, int cap, int modul
 
 
 // Return transitions vector
-std::vector<int> Transitiondata::get_transition(int cap, int modulate) const
+vector<int> Transitiondata::get_transition(int cap, int modulate) const
 {
 //	cout << "@Transitiondata::get_transition(int) cap = " << cap << "; modulate = " << modulate << endl;
 	if (cap < 0)
@@ -246,7 +247,7 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //	cout << "@prevres_intvec(DataFrame, const char*, const char*, const char*) subject " << subject
 //		 << "; timepoint " << timepoint << "; result " << result << endl;
 	int testcol { colpos(object, result) };
-	IntegerVector intvec(wrap(std::vector<int>(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), testcol).prev_result())));
+	IntegerVector intvec(wrap(vector<int>(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), testcol).prev_result())));
 	intvec.attr("class") = CharacterVector::create("factor", "ordered");
 	intvec.attr("levels") = (RObject { object[testcol] }).attr("levels");
 	return intvec;
