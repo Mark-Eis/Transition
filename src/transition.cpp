@@ -98,7 +98,7 @@ inline int adjust(int diff, int cap, int modulate)
 	bool neg = std::signbit(diff);
 	diff = abs(diff);
 	if (modulate > 1)
-		diff = (diff + 1) / modulate;
+		diff = (diff + modulate - 1) / modulate;
 	if (bool(cap))
 		diff = (diff < cap) ? diff : cap;
 	return neg ? diff *= -1 : diff;
