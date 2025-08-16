@@ -321,8 +321,8 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //' @param timepoint \code{character}, name of the column recording time points (as \code{\link{Dates}})
 //'   of testing of subjects; default \code{"timepoint"}.
 //'
-//' @param result \code{character}, name of the column (of type \code{\link[base:factor]{ordered factor}})
-//'   recording test results; default \code{"result"}.
+//' @param result \code{character}, name of the column (of type \code{\link[base:factor]{ordered factor}},
+//'   or binary, see \emph{Details}) recording test results; default \code{"result"}.
 //'
 //' @param transition \code{character}, name to be used for a new column (of type
 //'   \code{\link{integer}}) to record transitions; default \code{"transition"}.
