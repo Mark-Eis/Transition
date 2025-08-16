@@ -112,18 +112,20 @@ inline int adjust(int diff, int cap, int modulate)
 template<typename T>
 T Transitiondata::typechecker(int colno, int arg)
 {	
-//	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << std::endl;
+//	cout << "@Transitiondata::typechecker<T>(int, int) colno " << colno << "; arg " << arg << endl;
 	std::string errstr("column `");
-	errstr += vector<string>(df.names())[colno] + "` not ";
+	errstr += vector<string>(df.names())[colno] + "`";
+	std::string wrnstr(errstr);
 	RObject colobj { df[colno] };
 	bool good = is<T>(df[colno]);
+	bool warn = false;
 	switch (arg) {
 		case 0:
-			if (!good) errstr += " of class data.frame";
+			if (!good) errstr += " not of class data.frame";
 			break;
 
 		case 1:
-			if (!good) errstr += "an integer or factor";
+			if (!good) errstr += " not an integer or factor";
 			break;
 
 		case 2:
@@ -131,21 +133,33 @@ T Transitiondata::typechecker(int colno, int arg)
 				if (colobj.inherits("Date")) {
 					if (!is<NumericVector>(colobj)) {
 						if (is<IntegerVector>(colobj)) {
-							warning(errstr + "of correct type: Date converted from integer to numeric");
+							wrnstr += ": Date converted from integer to numeric";
+							warn = true;
 							df[colno] = as<NumericVector>(df[colno]);
 							good = true; 
 						}
-						errstr += "of class Date, type numeric";
+						errstr += " not of class Date, type numeric";
 					}
-				} else errstr += " of class Date";
+				} else errstr += " not of class Date";
 			}
 			break;
 
 		case 3:
 			if (!(good && colobj.inherits("factor") && colobj.inherits("ordered"))) {
-				errstr += "an ordered factor";
-				good = false;
+				if (is<NumericVector>(colobj)) {
+					wrnstr += ": type converted from numeric to integer";
+					warn = true;
+					df[colno] = as<IntegerVector>(df[colno]);
+					good = true;
+				}
+				if (good) {
+					const vector<int>& v = as<vector<int>>(colobj);   
+					auto minmax = std::minmax_element(v.begin(), v.end());
+					good = !(0 > *minmax.first || 1 < *minmax.second);
+				} else
+					good = false;
 			}
+			errstr += " neither an ordered factor nor an integer vector of 0s and 1s";
 			break;
 
 			default:
@@ -153,6 +167,8 @@ T Transitiondata::typechecker(int colno, int arg)
 	}
 	if (!good)
 		throw std::invalid_argument(errstr);
+	if (warn)
+		warning(wrnstr);
 	return df[colno];
 }
 
