@@ -30,8 +30,8 @@ a data frame) containing the data to be analysed.}
 \item{timepoint}{\code{character}, name of the column recording time points (as \code{\link{Dates}})
 of testing of subjects; default \code{"timepoint"}.}
 
-\item{result}{\code{character}, name of the column (of type \code{\link[base:factor]{ordered factor}})
-recording test results; default \code{"result"}.}
+\item{result}{\code{character}, name of the column (of type \code{\link[base:factor]{ordered factor}},
+or binary, see \emph{Details}) recording test results; default \code{"result"}.}
 }
 \value{
 \item{\code{add_prev_result()}}{A \code{\link{data.frame}} based on \code{object}, with an added
