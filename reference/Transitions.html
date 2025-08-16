@@ -11,7 +11,7 @@ add_transitions() interpolates these transitions into a data frame for further a
 
     <a class="navbar-brand me-2" href="../index.html">Transition</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,8 +90,8 @@ of testing of subjects; default <code>"timepoint"</code>.</p></dd>
 
 
 <dt id="arg-result">result<a class="anchor" aria-label="anchor" href="#arg-result"></a></dt>
-<dd><p><code>character</code>, name of the column (of type <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered factor</a></code>)
-recording test results; default <code>"result"</code>.</p></dd>
+<dd><p><code>character</code>, name of the column (of type <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered factor</a></code>,
+or binary, see <em>Details</em>) recording test results; default <code>"result"</code>.</p></dd>
 
 
 <dt id="arg-transition">transition<a class="anchor" aria-label="anchor" href="#arg-transition"></a></dt>
@@ -131,9 +131,10 @@ ensuring the data contain unique combinations of <code>subject</code>, <code>tim
 if not, outputs will be undefined.</p>
 <p>Time points should be formatted as <code><a href="https://rdrr.io/r/base/Dates.html" class="external-link">Dates</a></code> and included in data frame <code>object</code> in
 the column named as specified by argument <code>timepoint</code> (see <em>Note</em>).</p>
-<p>Test results should be semi-quantitiative, formatted as <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered factor</a></code>
-and included in data frame <code>object</code> in the column named as specified by argument <code>result</code>
-(see <em>Note</em>).</p>
+<p>Test results should be semi-quantitiative and formatted as an
+<code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered factor</a></code>, or binary, formatted as an integer (or numeric) vector
+with all values either 0 or 1, and included in data frame <code>object</code> in the column named as
+specified by argument <code>result</code> (see <em>Note</em>).</p>
 <p>Temporal transitions in the test <code>results</code> for each <code>subject</code> within the <code>object</code>
 <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></code> are characterised using methods governed by options <code>cap</code> and
 <code>modulate</code>. If these two parameters are both zero (their defaults), a simple arithmetic
