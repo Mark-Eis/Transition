@@ -159,7 +159,7 @@ T Transitiondata::typechecker(int colno, int arg)
 				} else
 					good = false;
 			}
-			errstr += " neither an ordered factor nor an integer vector of 0s and 1s";
+			errstr += " neither an ordered factor nor an integer vector with all values either 0 or 1";
 			break;
 
 			default:
