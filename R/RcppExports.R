@@ -257,6 +257,9 @@ get_prev_date <- function(object, subject = "subject", timepoint = "timepoint", 
 #' @seealso
 #' \code{\link{data.frame}}, \code{\link{Dates}}, \code{\link[base:factor]{ordered factor}}.
 #'
+#' @param prev_result \code{character}, name to be used for a new column to record previous result;
+#'   default \code{"prev_result"}.
+#'
 #' @inheritParams Transitions
 #'
 #' @return
