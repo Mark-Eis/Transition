@@ -39,8 +39,9 @@ default \code{"prev_result"}.}
 }
 \value{
 \item{\code{add_prev_result()}}{A \code{\link{data.frame}} based on \code{object}, with an added
-   column of type \code{\link[base:factor]{ordered factor}} containing the values of the previous
-   test results.}
+   column of type \code{\link[base:factor]{ordered factor}} or \code{\link{integer}} depending
+   whether the results are semi-quantitiative or binary, named as specified by argument
+   \code{prev_result} and containing the values of the previous test results.}
 
 \item{\code{get_prev_result()}}{An \code{\link[base:factor]{ordered factor}} of length
    \code{\link{nrow}(object)}, containing the values of the previous test results ordered in the
