@@ -72,8 +72,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // add_prev_result
-DataFrame add_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result);
-RcppExport SEXP _Transition_add_prev_result(SEXP objectSEXP, SEXP subjectSEXP, SEXP timepointSEXP, SEXP resultSEXP) {
+DataFrame add_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result, const char* prev_result);
+RcppExport SEXP _Transition_add_prev_result(SEXP objectSEXP, SEXP subjectSEXP, SEXP timepointSEXP, SEXP resultSEXP, SEXP prev_resultSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -81,7 +81,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const char* >::type subject(subjectSEXP);
     Rcpp::traits::input_parameter< const char* >::type timepoint(timepointSEXP);
     Rcpp::traits::input_parameter< const char* >::type result(resultSEXP);
-    rcpp_result_gen = Rcpp::wrap(add_prev_result(object, subject, timepoint, result));
+    Rcpp::traits::input_parameter< const char* >::type prev_result(prev_resultSEXP);
+    rcpp_result_gen = Rcpp::wrap(add_prev_result(object, subject, timepoint, result, prev_result));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -119,7 +120,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_Transition_get_transitions", (DL_FUNC) &_Transition_get_transitions, 6},
     {"_Transition_add_prev_date", (DL_FUNC) &_Transition_add_prev_date, 4},
     {"_Transition_get_prev_date", (DL_FUNC) &_Transition_get_prev_date, 4},
-    {"_Transition_add_prev_result", (DL_FUNC) &_Transition_add_prev_result, 4},
+    {"_Transition_add_prev_result", (DL_FUNC) &_Transition_add_prev_result, 5},
     {"_Transition_get_prev_result", (DL_FUNC) &_Transition_get_prev_result, 4},
     {"_Transition_uniques", (DL_FUNC) &_Transition_uniques, 4},
     {NULL, NULL, 0}

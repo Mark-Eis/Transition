@@ -263,9 +263,11 @@ inline IntegerVector prevres_intvec(DataFrame object, const char* subject, const
 //	cout << "@prevres_intvec(DataFrame, const char*, const char*, const char*) subject " << subject
 //		 << "; timepoint " << timepoint << "; result " << result << endl;
 	int testcol { colpos(object, result) };
+    RObject colobj { object[testcol] };
 	IntegerVector intvec(wrap(vector<int>(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), testcol).prev_result())));
-	intvec.attr("class") = CharacterVector::create("factor", "ordered");
-	intvec.attr("levels") = (RObject { object[testcol] }).attr("levels");
+	if (colobj.inherits("factor") && colobj.inherits("ordered"))
+		intvec.attr("class") = CharacterVector::create("factor", "ordered");
+	intvec.attr("levels") = colobj.attr("levels");
 	return intvec;
 }
 
@@ -589,6 +591,9 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 //' @seealso
 //' \code{\link{data.frame}}, \code{\link{Dates}}, \code{\link[base:factor]{ordered factor}}.
 //'
+//' @param prev_result \code{character}, name to be used for a new column to record previous result;
+//'   default \code{"prev_result"}.
+//'
 //' @inheritParams Transitions
 //'
 //' @return
@@ -622,11 +627,18 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 //' rm(Blackmore)
 //'
 // [[Rcpp::export]]
-DataFrame add_prev_result(DataFrame object, const char* subject = "subject", const char* timepoint = "timepoint", const char* result = "result")
+DataFrame add_prev_result(
+	DataFrame object,
+	const char* subject = "subject",
+	const char* timepoint = "timepoint",
+	const char* result = "result",
+	const char* prev_result = "prev_result"
+)
 {
-//	cout << "——Rcpp::export——add_prev_result(DataFrame, const char*, const char*, const char*) subject " << subject << "; timepoint " << timepoint << "; result " << result << endl;
+//	cout << "——Rcpp::export——add_prev_result(DataFrame, const char*, const char*, const char*, const char*) subject "
+//		 << subject << "; timepoint " << timepoint << "; result " << result << "; prev_result " << prev_result << endl;
 	try {
-		object.push_back(prevres_intvec(object, subject, timepoint, result), "prev_result");
+		object.push_back(prevres_intvec(object, subject, timepoint, result), prev_result);
 		return object;
 	} catch (exception& e) {
 		Rcerr << "Error in add_prev_result(): " << e.what() << '\n';

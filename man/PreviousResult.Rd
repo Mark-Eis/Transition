@@ -10,7 +10,8 @@ add_prev_result(
   object,
   subject = "subject",
   timepoint = "timepoint",
-  result = "result"
+  result = "result",
+  prev_result = "prev_result"
 )
 
 get_prev_result(

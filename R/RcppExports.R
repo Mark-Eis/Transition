@@ -289,8 +289,8 @@ get_prev_date <- function(object, subject = "subject", timepoint = "timepoint", 
 #'
 #' rm(Blackmore)
 #'
-add_prev_result <- function(object, subject = "subject", timepoint = "timepoint", result = "result") {
-    .Call(`_Transition_add_prev_result`, object, subject, timepoint, result)
+add_prev_result <- function(object, subject = "subject", timepoint = "timepoint", result = "result", prev_result = "prev_result") {
+    .Call(`_Transition_add_prev_result`, object, subject, timepoint, result, prev_result)
 }
 
 #' @rdname PreviousResult

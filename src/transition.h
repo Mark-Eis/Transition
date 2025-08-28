@@ -74,7 +74,7 @@ IntegerVector get_transitions(DataFrame object, const char* subject, const char*
 DataFrame add_prev_date(DataFrame object, const char* subject, const char* timepoint, const char* result);
 DateVector get_prev_date(DataFrame object, const char* subject, const char* timepoint, const char* result);
 DataFrame add_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result);
-IntegerVector get_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result);
+IntegerVector get_prev_result(DataFrame object, const char* subject, const char* timepoint, const char* result, const char* prev_result);
 List uniques(DataFrame object, const char* subject, const char* timepoint, const char* result);
 
 #endif  // TRANSITION_H
