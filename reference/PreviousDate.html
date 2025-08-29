@@ -11,7 +11,7 @@ add_prev_date() interpolates these previous test dates into a data frame for fur
 
     <a class="navbar-brand me-2" href="../index.html">Transition</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,8 @@ in a longitudinal study.</p>
 <span>  <span class="va">object</span>,</span>
 <span>  subject <span class="op">=</span> <span class="st">"subject"</span>,</span>
 <span>  timepoint <span class="op">=</span> <span class="st">"timepoint"</span>,</span>
-<span>  result <span class="op">=</span> <span class="st">"result"</span></span>
+<span>  result <span class="op">=</span> <span class="st">"result"</span>,</span>
+<span>  prev_date <span class="op">=</span> <span class="st">"prev_date"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">get_prev_date</span><span class="op">(</span></span>
@@ -88,6 +89,11 @@ of testing of subjects; default <code>"timepoint"</code>.</p></dd>
 <dd><p><code>character</code>, name of the column (of type <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered factor</a></code>,
 or binary, see <em>Details</em>) recording test results; default <code>"result"</code>.</p></dd>
 
+
+<dt id="arg-prev-date">prev_date<a class="anchor" aria-label="anchor" href="#arg-prev-date"></a></dt>
+<dd><p><code>character</code>, name to be used for a new column to record previous test dates;
+default <code>"prev_date"</code>.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -95,7 +101,8 @@ or binary, see <em>Details</em>) recording test results; default <code>"result"<
 
 <dl><dt><code>add_prev_date()</code></dt>
 <dd><p>A <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></code> based on <code>object</code>, with an added
-   column of class <code><a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a></code> containing the values of the previous test dates.</p></dd>
+   column named as specified by argument <code>prev_date</code> of class <code><a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a></code> containing
+   the values of the previous test dates.</p></dd>
 
 
 <dt><code>get_prev_date()</code></dt>
