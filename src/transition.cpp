@@ -464,6 +464,9 @@ IntegerVector get_transitions(
 //' @seealso
 //' \code{\link{data.frame}}, \code{\link{Dates}}, \code{\link[base:factor]{ordered factor}}.
 //'
+//' @param prev_date \code{character}, name to be used for a new column to record previous result;
+//'   default \code{"prev_date"}.
+//'
 //' @inheritParams Transitions
 //'
 //' @return
@@ -540,6 +543,7 @@ IntegerVector get_transitions(
 //'
 //' rm(df)
 //'
+/*
 // [[Rcpp::export]]
 DataFrame add_prev_date(DataFrame object, const char* subject = "subject", const char* timepoint = "timepoint", const char* result = "result")
 {
@@ -551,6 +555,26 @@ DataFrame add_prev_date(DataFrame object, const char* subject = "subject", const
 		Rcerr << "Error in add_prev_date(): " << e.what() << '\n';
 	} catch (std::invalid_argument& iva) {
 		Rcerr << "Error invalid argument: " << iva.what() << '\n';
+	}
+	return DataFrame::create();
+} */
+
+// [[Rcpp::export]]
+DataFrame add_prev_date(
+	DataFrame object, const char* subject = "subject",
+	const char* timepoint = "timepoint",
+	const char* result = "result",
+	const char* prev_date = "prev_date")
+{
+//	cout << "——Rcpp::export——add_prev_date(DataFrame, const char*, const char*, const char*) subject "
+//	<< subject << "; timepoint " << timepoint << "; result " << result << "; prev_date " << prev_date << endl;
+	try {
+        	object.push_back(DateVector(wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).prev_date())), prev_date);
+ 	return object;
+	} catch (exception& e) {
+        	Rcerr << "Error in add_prev_date(): " << e.what() << '\n';
+	} catch (std::invalid_argument& iva) {
+        	Rcerr << "Error invalid argument: " << iva.what() << '\n';
 	}
 	return DataFrame::create();
 }
