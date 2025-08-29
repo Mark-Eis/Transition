@@ -153,12 +153,16 @@ get_transitions <- function(object, subject = "subject", timepoint = "timepoint"
 #' @seealso
 #' \code{\link{data.frame}}, \code{\link{Dates}}, \code{\link[base:factor]{ordered factor}}.
 #'
+#' @param prev_date \code{character}, name to be used for a new column to record previous test dates;
+#'   default \code{"prev_date"}.
+#'
 #' @inheritParams Transitions
 #'
 #' @return
 #'
 #' \item{\code{add_prev_date()}}{A \code{\link{data.frame}} based on \code{object}, with an added
-#'    column of class \code{\link{Date}} containing the values of the previous test dates.}
+#'    column named as specified by argument \code{prev_date} of class \code{\link{Date}} containing
+#'    the values of the previous test dates.}
 #'
 #' \item{\code{get_prev_date()}}{An \code{vector} of length \code{\link{nrow}(object)},
 #'    class \code{\link{Date}}, containing the values of the previous test dates ordered in the exact
@@ -229,8 +233,8 @@ get_transitions <- function(object, subject = "subject", timepoint = "timepoint"
 #'
 #' rm(df)
 #'
-add_prev_date <- function(object, subject = "subject", timepoint = "timepoint", result = "result") {
-    .Call(`_Transition_add_prev_date`, object, subject, timepoint, result)
+add_prev_date <- function(object, subject = "subject", timepoint = "timepoint", result = "result", prev_date = "prev_date") {
+    .Call(`_Transition_add_prev_date`, object, subject, timepoint, result, prev_date)
 }
 
 #' @rdname PreviousDate
