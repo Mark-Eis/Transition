@@ -464,7 +464,7 @@ IntegerVector get_transitions(
 //' @seealso
 //' \code{\link{data.frame}}, \code{\link{Dates}}, \code{\link[base:factor]{ordered factor}}.
 //'
-//' @param prev_date \code{character}, name to be used for a new column to record previous result;
+//' @param prev_date \code{character}, name to be used for a new column to record previous test dates;
 //'   default \code{"prev_date"}.
 //'
 //' @inheritParams Transitions
