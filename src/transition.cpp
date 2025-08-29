@@ -472,7 +472,8 @@ IntegerVector get_transitions(
 //' @return
 //'
 //' \item{\code{add_prev_date()}}{A \code{\link{data.frame}} based on \code{object}, with an added
-//'    column of class \code{\link{Date}} containing the values of the previous test dates.}
+//'    column named as specified by argument \code{prev_date} of class \code{\link{Date}} containing
+//'    the values of the previous test dates.}
 //'
 //' \item{\code{get_prev_date()}}{An \code{vector} of length \code{\link{nrow}(object)},
 //'    class \code{\link{Date}}, containing the values of the previous test dates ordered in the exact
@@ -543,22 +544,6 @@ IntegerVector get_transitions(
 //'
 //' rm(df)
 //'
-/*
-// [[Rcpp::export]]
-DataFrame add_prev_date(DataFrame object, const char* subject = "subject", const char* timepoint = "timepoint", const char* result = "result")
-{
-//	cout << "——Rcpp::export——add_prev_date(DataFrame, const char*, const char*, const char*) subject " << subject << "; timepoint " << timepoint << "; result " << result << endl;
-	try {
-		object.push_back(DateVector(wrap(Transitiondata(object, colpos(object, subject), colpos(object, timepoint), colpos(object, result)).prev_date())), "prev_date");
-		return object;
-	} catch (exception& e) {
-		Rcerr << "Error in add_prev_date(): " << e.what() << '\n';
-	} catch (std::invalid_argument& iva) {
-		Rcerr << "Error invalid argument: " << iva.what() << '\n';
-	}
-	return DataFrame::create();
-} */
-
 // [[Rcpp::export]]
 DataFrame add_prev_date(
 	DataFrame object, const char* subject = "subject",
