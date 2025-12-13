@@ -156,8 +156,7 @@ T Transitiondata::typechecker(int colno, int arg)
 					const vector<int>& v = as<vector<int>>(colobj);   
 					auto minmax = std::minmax_element(v.begin(), v.end());
 					good = !(0 > *minmax.first || 1 < *minmax.second);
-				} else
-					good = false;
+				}
 			}
 			errstr += " neither an ordered factor nor an integer vector with all values either 0 or 1";
 			break;
