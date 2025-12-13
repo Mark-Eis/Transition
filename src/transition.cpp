@@ -474,8 +474,8 @@ IntegerVector get_transitions(
 //'    column named as specified by argument \code{prev_date} of class \code{\link{Date}} containing
 //'    the values of the previous test dates.}
 //'
-//' \item{\code{get_prev_date()}}{An \code{vector} of length \code{\link{nrow}(object)},
-//'    class \code{\link{Date}}, containing the values of the previous test dates ordered in the exact
+//' \item{\code{get_prev_date()}}{A \code{vector} of class \code{\link{Date}}, length
+//'    \code{\link{nrow}(object)}, containing the values of the previous test dates ordered in the exact
 //'    sequence of the \code{subject} and \code{timepoint} in \code{object}.}
 //'
 //'
