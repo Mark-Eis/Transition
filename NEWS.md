@@ -1,3 +1,5 @@
+# Transition (development version)
+
 # Transition 1.0.1
 
 * Improve `adjust()` formula (#9).
