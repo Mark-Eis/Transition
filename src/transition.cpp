@@ -451,7 +451,7 @@ IntegerVector get_transitions(
 //' PreviousDate
 //'
 //' @description
-//' \code{get_prev_dates()} identifies the previous test date for individual subjects and timepoints
+//' \code{get_prev_date()} identifies the previous test date for individual subjects and timepoints
 //' in a longitudinal study.
 //'
 //' \code{add_prev_date()} interpolates these previous test dates into a data frame for further analysis.
@@ -587,7 +587,7 @@ DateVector get_prev_date(DataFrame object, const char* subject = "subject", cons
 //' PreviousResult
 //'
 //' @description
-//' \code{get_prev_results()} identifies the previous test result for individual subjects and timepoints
+//' \code{get_prev_result()} identifies the previous test result for individual subjects and timepoints
 //' in a longitudinal study.
 //'
 //' \code{add_prev_result()} interpolates these previous test results into a data frame for further analysis.
