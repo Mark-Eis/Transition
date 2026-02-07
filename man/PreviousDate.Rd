@@ -47,7 +47,7 @@ default \code{"prev_date"}.}
    sequence of the \code{subject} and \code{timepoint} in \code{object}.}
 }
 \description{
-\code{get_prev_dates()} identifies the previous test date for individual subjects and timepoints
+\code{get_prev_date()} identifies the previous test date for individual subjects and timepoints
 in a longitudinal study.
 
 \code{add_prev_date()} interpolates these previous test dates into a data frame for further analysis.

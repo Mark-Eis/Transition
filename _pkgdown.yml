@@ -3,13 +3,13 @@ template:
   bootstrap: 5
   light-switch: yes
 reference:
-- title: Transitions 
+- title: Transitions
   desc: |
     Identify Temporal Transitions in Longitudinal Study Data.
   contents:
   - add_transitions
   - get_transitions
-- title: PreviousDate 
+- title: PreviousDate
   desc: |
     Find Previous Test Date for Subject.
   contents:
@@ -24,13 +24,11 @@ reference:
 - title: uniques
   desc: |
     Unique Values for Subject, Timepoint and Result.
-  contents:
-  - uniques
+  contents: uniques
 - title: Blackmore
   desc: |
     Exercise Histories of Eating-Disordered and Control Subjects.
-  contents:
-  - Blackmore
+  contents: Blackmore
 - title: About
-  contents:
-   - "Transition-package"
+  contents: Transition-package
+
