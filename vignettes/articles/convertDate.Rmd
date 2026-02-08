@@ -59,6 +59,7 @@ Finally, we can format the class \code{"Date"} \emph{timepoint} column to show j
 
 ```{r}
 transform(df, timepoint = format(timepoint, "%Y"))
+```
 
 ## 3. Convert numeric values representing year and month to objects of class \code{"Date"}}
 
