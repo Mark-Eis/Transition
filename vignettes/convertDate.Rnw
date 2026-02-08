@@ -39,7 +39,7 @@ the main \strong{Transition} package functions \code{add\_prev\_date()},
  if any. For compatibility with these \strong{Transition} package
  functions, the timings of observations in a dataset, each referred
  to as a \emph{`timepoint`}, should be coded within the data frame
- as objects of class
+ as \R{} objects of class
  \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html}
 {\code{"Date"}}, representing calendar dates.
 
