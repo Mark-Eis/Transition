@@ -71,9 +71,9 @@ column to class \code{"Date"} using arbitrary values of January
     ))
 @
 
-We can now add a column of previous test results using the
-\code{add\_prev\_result()} function with default values for
-all but the first argument: -
+We can now use the \code{add\_prev\_result()} function with
+default values for all but the first argument to add a column
+of results from the previous observation: -
 
 <<>>=
 (df <- add_prev_result(df))
@@ -114,9 +114,9 @@ We convert numeric values for year and month to class \code{"Date"}: -
     ))
 @
 
-We can now add a column of test result transitions using
-\code{add\_transitions()} function with default values
-for all but the first argument: -
+We can now use the \code{add\_transitions()} function with
+default values for all but the first argument to add a column
+of transitions: -
 
 <<>>=
 (df <- add_transitions(df))
