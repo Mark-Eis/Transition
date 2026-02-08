@@ -1,5 +1,5 @@
 ---
-title: "Converting numeric values to class Date"
+title: "Converting numeric values to class \"Date\""
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Converting numeric values to class "Date"}
