@@ -41,11 +41,14 @@ these \strong{Transition} package functions, the timings of
 observations in a dataset, each referred to as a
 \emph{timepoint}, should be coded within the data frame
 as \R{} objects of class
- \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html}
+\href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html}
 {\code{"Date"}}, representing calendar dates.
 
-This vignette explains how timepoints represented by numeric
-values in data may be easily converted to class {\code{"Date"}.
+This vignette explains how timepoints represented by numeric values
+in data may be easily converted to class {\code{"Date"}, using the \R{}
+\strong{base} package function
+\href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html}
+{\code{as.Date()}}.
 
 \section{Convert numeric values representing year to class \code{"Date"}}
 
@@ -61,8 +64,8 @@ with observations having one of three possible ordinal values: -
     ))
 @
 
-We convert numeric the values for year in the \emph{timepoint}
-column to class \code{"Date"}, using the \R{} \strong{base} package function
+We convert the numeric values for year in the \emph{timepoint}
+column to class \code{"Date"}, using
 \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html}
 {\code{as.Date()}} with consistent arbitrary values of January 1st for month
 and day: -

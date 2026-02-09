@@ -24,7 +24,7 @@ Copyright (c) 2026 Mark Eisler and Ana Rabaza
 
 For each observation of a subject in a longitudinal study data set, the main **Transition** package functions `add_prev_date()`, `add_prev_result()` and `add_transitions()` all need to identify the previous observation for that same subject, if any. For compatibility with these **Transition** package functions, the timings of observations in a dataset, each referred to as a `timepoint`, should be coded within the data frame as R objects of class [`"Date"`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html), representing calendar dates.
 
-This vignette explains how timepoints represented by numeric values in data may be easily converted to class `"Date"`.
+This vignette explains how timepoints represented by numeric values in data may be easily converted to class `"Date"`, using the R **base** package function [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html).
 
 ## 2. Convert numeric values representing year to class `"Date"`
 
@@ -38,7 +38,7 @@ We start by creating an example data frame of longitudinal data containing years
     ))
 ```
 
-We convert numeric the values for year in the `timepoint` column to class `"Date"`, using the R base package function [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html) with consistent arbitrary values of January 1st for month and day: -
+We convert the numeric values for year in the `timepoint` column to class `"Date"`, using [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html) with consistent arbitrary values of January 1st for month and day: -
 
 ```{r}
 (df <- transform(
