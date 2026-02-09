@@ -2,6 +2,16 @@
 
 ## Transition (development version)
 
+- Remove redundant code (#15)
+
+- Improve documentation of Value for
+  [`get_transitions()`](https://mark-eis.github.io/Transition/reference/Transitions.md)
+  (#16)
+
+- Function name typos (#17)
+
+- Example on formatting numeric values as R dates as vignette (#18)
+
 ## Transition 1.0.1
 
 CRAN release: 2025-08-29
