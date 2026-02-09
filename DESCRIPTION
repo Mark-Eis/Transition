@@ -1,7 +1,7 @@
 Package: Transition
 Type: Package
 Title: Characterise Transitions in Test Result Status in Longitudinal Studies
-Version: 1.0.1.9002
+Version: 1.0.1.9003
 Date: 2026-02-09
 Description: Analyse data from longitudinal studies to characterise changes in values of
    semi-quantitative outcome variables within individual subjects, using high performance C++
