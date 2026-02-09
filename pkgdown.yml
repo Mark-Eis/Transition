@@ -1,8 +1,9 @@
 pandoc: 3.1.11
 pkgdown: 2.2.0
 pkgdown_sha: ~
-articles: {}
-last_built: 2025-12-13T18:20Z
+articles:
+  articles/convertDate: convertDate.html
+last_built: 2026-02-09T14:22Z
 urls:
   reference: https://mark-eis.github.io/Transition/reference
   article: https://mark-eis.github.io/Transition/articles

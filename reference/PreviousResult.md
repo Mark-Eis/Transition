@@ -1,6 +1,6 @@
 # Find Previous Test Result for Subject
 
-`get_prev_results()` identifies the previous test result for individual
+`get_prev_result()` identifies the previous test result for individual
 subjects and timepoints in a longitudinal study.
 
 `add_prev_result()` interpolates these previous test results into a data

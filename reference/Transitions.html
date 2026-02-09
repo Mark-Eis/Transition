@@ -11,7 +11,7 @@ add_transitions() interpolates these transitions into a data frame for further a
 
     <a class="navbar-brand me-2" href="../index.html">Transition</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.1.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,6 +20,10 @@ add_transitions() interpolates these transitions into a data frame for further a
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/convertDate.html">Converting numeric values to class Date</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -149,7 +153,8 @@ integer, the (possibly modulated) absolute arithmetic difference is capped at th
   to R <code>Dates</code> conveniently using <code><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date()</a></code>. If only <em>year</em> information is
   available, arbitrary values could be used consistently for month and day e.g., 1st of January of
   each year; likewise, the first day of each month could be used arbitrary, if only the
-  <em>year</em> and <em>month</em> were known.</p>
+  <em>year</em> and <em>month</em> were known. See vignette
+  <a href="../doc/convertDate.pdf">Converting numeric values to class <code>"Date"</code></a> for examples.</p>
 <p>Quantitive results available as <code><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></code> data can be converted to a semi-quantitative
   <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered factor</a></code> conveniently using <code><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut()</a></code> (see <em>examples</em>).</p>
     </div>

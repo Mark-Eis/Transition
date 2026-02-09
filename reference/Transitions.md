@@ -132,7 +132,9 @@ to R `Dates` conveniently using
 information is available, arbitrary values could be used consistently
 for month and day e.g., 1st of January of each year; likewise, the first
 day of each month could be used arbitrary, if only the *year* and
-*month* were known.
+*month* were known. See vignette [Converting numeric values to class
+`"Date"`](https://mark-eis.github.io/Transition/doc/convertDate.pdf) for
+examples.
 
 Quantitive results available as
 [`numeric`](https://rdrr.io/r/base/numeric.html) data can be converted
