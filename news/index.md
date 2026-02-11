@@ -1,6 +1,6 @@
 # Changelog
 
-## Transition (development version)
+## Transition 1.0.2
 
 - Remove redundant code (#15)
 
