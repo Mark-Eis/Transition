@@ -1,3 +1,7 @@
+# Transition (development version)
+
+* Revise convertDate vignette and add section on ages #21
+
 # Transition 1.0.2
 
 * Remove redundant code (#15)
