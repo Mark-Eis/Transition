@@ -39,7 +39,7 @@ For each observation of a subject in a longitudinal study data set, the main
 and \code{add\_transitions()} all need to identify the previous observation for that same
 subject, if any. For compatibility with these \pkg{Transition} package functions, the
 timings of observations in a dataset, each referred to as a \emph{timepoint}, should
-be coded within the data frame as \R{} objects of class
+be coded within the data frame as a column of \R{} class
 \href{https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html} {\code{"Date"}},
 representing calendar dates.
 
