@@ -10,13 +10,13 @@
 ## Citation
 
 Eisler M, Rabaza A (2026). *Transition: Characterise Transitions in Test
-Result Status in Longitudinal Studies*. R package version 1.0.2,
+Result Status in Longitudinal Studies*. R package version 1.0.2.9000,
 <https://mark-eis.github.io/Transition/>.
 
     @Manual{,
       title = {Transition: Characterise Transitions in Test Result Status in Longitudinal Studies},
       author = {Mark Eisler and Ana Rabaza},
       year = {2026},
-      note = {R package version 1.0.2},
+      note = {R package version 1.0.2.9000},
       url = {https://mark-eis.github.io/Transition/},
     }

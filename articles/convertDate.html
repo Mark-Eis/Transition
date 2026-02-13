@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">Transition</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,19 +83,19 @@ the main <strong>Transition</strong> package functions
 observation for that same subject, if any. For compatibility with these
 <strong>Transition</strong> package functions, the timings of
 observations in a dataset, each referred to as a <code>timepoint</code>,
-should be coded within the data frame as R objects of class <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html" class="external-link"><code>"Date"</code></a>,
+should be coded within the data frame as a column of R class <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html" class="external-link"><code>"Date"</code></a>,
 representing calendar dates.</p>
 <p>This vignette explains how timepoints represented by numeric values
-in data may be easily converted to class <code>"Date"</code>, using the
+in data may easily be converted to class <code>"Date"</code>, using the
 R <strong>base</strong> package function <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html" class="external-link"><code>as.Date()</code></a>.</p>
 </div>
 <div class="section level2">
 <h2 id="convert-numeric-values-representing-year-to-class-date">2. Convert numeric values representing year to class
 <code>"Date"</code><a class="anchor" aria-label="anchor" href="#convert-numeric-values-representing-year-to-class-date"></a>
 </h2>
-<p>We start by creating an example data frame of longitudinal data
-containing years 2018 to 2025 as numeric values for three subjects with
-observations having one of three possible ordinal values: -</p>
+<p>We start by creating an example data frame of longitudinal data for
+three subjects, containing years 2018 to 2025 as numeric values and with
+observations having one of three possible ordinal values: –</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>        subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1001</span><span class="op">:</span><span class="fl">1003</span><span class="op">)</span>,</span>
@@ -129,7 +129,7 @@ observations having one of three possible ordinal values: -</p>
 <span><span class="co">#&gt; 24    1003      2025   ugly</span></span></code></pre></div>
 <p>We convert the numeric values for year in the <code>timepoint</code>
 column to class <code>"Date"</code>, using <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html" class="external-link"><code>as.Date()</code></a>
-with consistent arbitrary values of January 1st for month and day: -</p>
+with consistent arbitrary values of January 1st for month and day: –</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span></span>
 <span>        <span class="va">df</span>,</span>
@@ -161,8 +161,9 @@ with consistent arbitrary values of January 1st for month and day: -</p>
 <span><span class="co">#&gt; 23    1002 2025-01-01   ugly</span></span>
 <span><span class="co">#&gt; 24    1003 2025-01-01   ugly</span></span></code></pre></div>
 <p>We can now use the <code><a href="../reference/PreviousResult.html">add_prev_result()</a></code> function with
-default values for all but the first argument to add a column of results
-from the previous observation: -</p>
+default values for all but the first argument <code>object</code>—a
+<code>data.frame</code> (or a subclass thereof)—to add a column of
+results from the previous observation: –</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PreviousResult.html">add_prev_result</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    subject  timepoint result prev_result</span></span>
@@ -192,7 +193,7 @@ from the previous observation: -</p>
 <span><span class="co">#&gt; 24    1003 2025-01-01   ugly        ugly</span></span></code></pre></div>
 <p>Finally, we can format the class <code>"Date"</code>
 <code>timepoint</code> column to show just the year, as in the original
-data: -</p>
+data: –</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, timepoint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"%Y"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    subject timepoint result prev_result</span></span>
@@ -225,9 +226,10 @@ data: -</p>
 <h2 id="convert-numeric-values-representing-year-and-month-to-class-date">3. Convert numeric values representing year and month to class
 <code>"Date"</code><a class="anchor" aria-label="anchor" href="#convert-numeric-values-representing-year-and-month-to-class-date"></a>
 </h2>
-<p>We create another example data frame of longitudinal data containing
-year and month July 2024 to June 2025 as numeric values for two subjects
-with observations having one of two possible ordinal values: -</p>
+<p>We create another example data frame of longitudinal data for two
+subjects, containing year and month from July 2024 to June 2025 as
+numeric values, and with observations having one of two possible ordinal
+values: –</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>        subject <span class="op">=</span> <span class="fl">1001</span><span class="op">:</span><span class="fl">1002</span>,</span>
@@ -260,9 +262,9 @@ with observations having one of two possible ordinal values: -</p>
 <span><span class="co">#&gt; 22    1002 2025     5   high</span></span>
 <span><span class="co">#&gt; 23    1001 2025     6   high</span></span>
 <span><span class="co">#&gt; 24    1002 2025     6   high</span></span></code></pre></div>
-<p>We convert numeric values for year and month to class
+<p>We convert the numeric values for year and month to class
 <code>"Date"</code>, using <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html" class="external-link"><code>as.Date()</code></a>
-with a consistent arbitrary value of 1st for day of the month: -</p>
+with a consistent arbitrary value of 1st for day of the month: –</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span></span>
 <span>        <span class="va">df</span>,</span>
@@ -297,7 +299,7 @@ with a consistent arbitrary value of 1st for day of the month: -</p>
 <span><span class="co">#&gt; 24    1002   high 2025-06-01</span></span></code></pre></div>
 <p>We can now use the <code><a href="../reference/Transitions.html">add_transitions()</a></code> function with
 default values for all but the first argument to add a column of
-transitions: -</p>
+transitions: –</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/Transitions.html">add_transitions</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    subject result  timepoint transition</span></span>
@@ -327,7 +329,7 @@ transitions: -</p>
 <span><span class="co">#&gt; 24    1002   high 2025-06-01          0</span></span></code></pre></div>
 <p>Finally, we can format the class <code>"Date"</code>
 <code>timepoint</code> column to show just the month and year, as in the
-original data: -</p>
+original data: –</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">df</span>, timepoint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/format.html" class="external-link">format</a></span><span class="op">(</span><span class="va">timepoint</span>, <span class="st">"%b-%Y"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;    subject result timepoint transition</span></span>
@@ -356,6 +358,159 @@ original data: -</p>
 <span><span class="co">#&gt; 23    1001   high  Jun-2025          1</span></span>
 <span><span class="co">#&gt; 24    1002   high  Jun-2025          0</span></span></code></pre></div>
 </div>
+<div class="section level2">
+<h2 id="convert-numeric-values-representing-ages-to-class-date">4. Convert numeric values representing ages to class
+<code>"Date"</code><a class="anchor" aria-label="anchor" href="#convert-numeric-values-representing-ages-to-class-date"></a>
+</h2>
+<p>We inspect the first 22 rows of the <code>Blackmore</code> data,
+which includes numeric values for age in years rather than dates: –</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Blackmore</span>, <span class="fl">22</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    subject   age exercise   group</span></span>
+<span><span class="co">#&gt; 1      100  8.00     2.71 patient</span></span>
+<span><span class="co">#&gt; 2      100 10.00     1.94 patient</span></span>
+<span><span class="co">#&gt; 3      100 12.00     2.36 patient</span></span>
+<span><span class="co">#&gt; 4      100 14.00     1.54 patient</span></span>
+<span><span class="co">#&gt; 5      100 15.92     8.63 patient</span></span>
+<span><span class="co">#&gt; 6      101  8.00     0.14 patient</span></span>
+<span><span class="co">#&gt; 7      101 10.00     0.14 patient</span></span>
+<span><span class="co">#&gt; 8      101 12.00     0.00 patient</span></span>
+<span><span class="co">#&gt; 9      101 14.00     0.00 patient</span></span>
+<span><span class="co">#&gt; 10     101 16.67     5.08 patient</span></span>
+<span><span class="co">#&gt; 11     102  8.00     0.92 patient</span></span>
+<span><span class="co">#&gt; 12     102 10.00     1.82 patient</span></span>
+<span><span class="co">#&gt; 13     102 12.00     4.75 patient</span></span>
+<span><span class="co">#&gt; 14     102 15.08    24.72 patient</span></span>
+<span><span class="co">#&gt; 15     103  8.00     1.04 patient</span></span>
+<span><span class="co">#&gt; 16     103 10.00     2.90 patient</span></span>
+<span><span class="co">#&gt; 17     103 12.00     2.65 patient</span></span>
+<span><span class="co">#&gt; 18     103 14.08     6.86 patient</span></span>
+<span><span class="co">#&gt; 19     104  8.00     2.75 patient</span></span>
+<span><span class="co">#&gt; 20     104 10.00     6.62 patient</span></span>
+<span><span class="co">#&gt; 21     104 12.00     0.29 patient</span></span>
+<span><span class="co">#&gt; 22     104 15.42    12.37 patient</span></span></code></pre></div>
+<p>We shall use the <code><a href="../reference/PreviousDate.html">add_prev_date()</a></code> function to add a
+column of previous test dates. For the <code>timepoint</code> argument,
+we convert the age values to class <code>"Date"</code> using <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html" class="external-link"><code>as.Date()</code></a>
+and an arbitrary “origin” of 1st January 2000<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;This is equivalent to assuming all subjects were born on
+the 1st January 2000, which is permissible so long as these dates are
+not used for any purpose other than that shown here.&lt;/p&gt;"><sup>1</sup></a>, to which we add the
+age in days<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;This works because class &lt;code&gt;"Date"&lt;/code&gt; is
+represented internally in days and has a method for the &lt;code&gt;+&lt;/code&gt;
+operator that returns a date.&lt;/p&gt;'><sup>2</sup></a> calculated as <code>365.25 * age</code> (in
+years).</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Blackmore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span></span>
+<span>        <span class="va">Blackmore</span>,</span>
+<span>        timepoint <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fl">365.25</span> <span class="op">*</span> <span class="va">age</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Blackmore</span>, <span class="fl">22</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    subject   age exercise   group  timepoint</span></span>
+<span><span class="co">#&gt; 1      100  8.00     2.71 patient 2008-01-01</span></span>
+<span><span class="co">#&gt; 2      100 10.00     1.94 patient 2009-12-31</span></span>
+<span><span class="co">#&gt; 3      100 12.00     2.36 patient 2012-01-01</span></span>
+<span><span class="co">#&gt; 4      100 14.00     1.54 patient 2014-01-01</span></span>
+<span><span class="co">#&gt; 5      100 15.92     8.63 patient 2015-12-03</span></span>
+<span><span class="co">#&gt; 6      101  8.00     0.14 patient 2008-01-01</span></span>
+<span><span class="co">#&gt; 7      101 10.00     0.14 patient 2009-12-31</span></span>
+<span><span class="co">#&gt; 8      101 12.00     0.00 patient 2012-01-01</span></span>
+<span><span class="co">#&gt; 9      101 14.00     0.00 patient 2014-01-01</span></span>
+<span><span class="co">#&gt; 10     101 16.67     5.08 patient 2016-09-02</span></span>
+<span><span class="co">#&gt; 11     102  8.00     0.92 patient 2008-01-01</span></span>
+<span><span class="co">#&gt; 12     102 10.00     1.82 patient 2009-12-31</span></span>
+<span><span class="co">#&gt; 13     102 12.00     4.75 patient 2012-01-01</span></span>
+<span><span class="co">#&gt; 14     102 15.08    24.72 patient 2015-01-30</span></span>
+<span><span class="co">#&gt; 15     103  8.00     1.04 patient 2008-01-01</span></span>
+<span><span class="co">#&gt; 16     103 10.00     2.90 patient 2009-12-31</span></span>
+<span><span class="co">#&gt; 17     103 12.00     2.65 patient 2012-01-01</span></span>
+<span><span class="co">#&gt; 18     103 14.08     6.86 patient 2014-01-30</span></span>
+<span><span class="co">#&gt; 19     104  8.00     2.75 patient 2008-01-01</span></span>
+<span><span class="co">#&gt; 20     104 10.00     6.62 patient 2009-12-31</span></span>
+<span><span class="co">#&gt; 21     104 12.00     0.29 patient 2012-01-01</span></span>
+<span><span class="co">#&gt; 22     104 15.42    12.37 patient 2015-06-03</span></span></code></pre></div>
+<p>To use the <code><a href="../reference/PreviousDate.html">add_prev_date()</a></code> function, we need to provide
+a <code>result</code> argument in one of two permissible formats—an
+ordered factor, or binary data with values of either 1 or 0; note that
+the <code>exercise</code> column is neither of these. Since we shall not
+be using the values of the <code>exercise</code> column for this
+demonstration, we simply add a dummy <code>result</code> column with
+values all <code>integer</code> 0: –</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Blackmore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span><span class="va">Blackmore</span>, result <span class="op">=</span> <span class="fl">0L</span><span class="op">)</span></span></code></pre></div>
+<p>We can now use <code><a href="../reference/PreviousDate.html">add_prev_date()</a></code> with default values for
+all but the first argument: –</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Blackmore</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PreviousDate.html">add_prev_date</a></span><span class="op">(</span><span class="va">Blackmore</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Blackmore</span>, <span class="fl">22</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    subject   age exercise   group  timepoint result  prev_date</span></span>
+<span><span class="co">#&gt; 1      100  8.00     2.71 patient 2008-01-01      0       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2      100 10.00     1.94 patient 2009-12-31      0 2008-01-01</span></span>
+<span><span class="co">#&gt; 3      100 12.00     2.36 patient 2012-01-01      0 2009-12-31</span></span>
+<span><span class="co">#&gt; 4      100 14.00     1.54 patient 2014-01-01      0 2012-01-01</span></span>
+<span><span class="co">#&gt; 5      100 15.92     8.63 patient 2015-12-03      0 2014-01-01</span></span>
+<span><span class="co">#&gt; 6      101  8.00     0.14 patient 2008-01-01      0       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7      101 10.00     0.14 patient 2009-12-31      0 2008-01-01</span></span>
+<span><span class="co">#&gt; 8      101 12.00     0.00 patient 2012-01-01      0 2009-12-31</span></span>
+<span><span class="co">#&gt; 9      101 14.00     0.00 patient 2014-01-01      0 2012-01-01</span></span>
+<span><span class="co">#&gt; 10     101 16.67     5.08 patient 2016-09-02      0 2014-01-01</span></span>
+<span><span class="co">#&gt; 11     102  8.00     0.92 patient 2008-01-01      0       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 12     102 10.00     1.82 patient 2009-12-31      0 2008-01-01</span></span>
+<span><span class="co">#&gt; 13     102 12.00     4.75 patient 2012-01-01      0 2009-12-31</span></span>
+<span><span class="co">#&gt; 14     102 15.08    24.72 patient 2015-01-30      0 2012-01-01</span></span>
+<span><span class="co">#&gt; 15     103  8.00     1.04 patient 2008-01-01      0       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 16     103 10.00     2.90 patient 2009-12-31      0 2008-01-01</span></span>
+<span><span class="co">#&gt; 17     103 12.00     2.65 patient 2012-01-01      0 2009-12-31</span></span>
+<span><span class="co">#&gt; 18     103 14.08     6.86 patient 2014-01-30      0 2012-01-01</span></span>
+<span><span class="co">#&gt; 19     104  8.00     2.75 patient 2008-01-01      0       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 20     104 10.00     6.62 patient 2009-12-31      0 2008-01-01</span></span>
+<span><span class="co">#&gt; 21     104 12.00     0.29 patient 2012-01-01      0 2009-12-31</span></span>
+<span><span class="co">#&gt; 22     104 15.42    12.37 patient 2015-06-03      0 2012-01-01</span></span></code></pre></div>
+<p>Finally, to be consistent with the original data, we can calculate a
+<code>prev_age</code><a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Note that by default, R formats the &lt;code&gt;age&lt;/code&gt;
+column to two decimal places because some ages in the
+&lt;code&gt;Blackmore&lt;/code&gt; dataset are not whole numbers of years. These
+non-whole number ages are always the last observation for an individual.
+Consequently, all “previous ages” are indeed whole numbers and R formats
+the &lt;code&gt;prev_age&lt;/code&gt; column without showing any decimal places.&lt;/p&gt;"><sup>3</sup></a> column from the <code>prev_date</code>
+column, which itself can be removed along with the now superfluous
+<code>timepoint</code> and <code>result</code> columns: –</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">Blackmore</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/transform.html" class="external-link">transform</a></span><span class="op">(</span></span>
+<span>        <span class="va">Blackmore</span>,</span>
+<span>        prev_age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span></span>
+<span>                <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">prev_date</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fl">365.25</span>, <span class="fl">2</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>        timepoint <span class="op">=</span> <span class="cn">NULL</span>, result <span class="op">=</span> <span class="cn">NULL</span>, prev_date <span class="op">=</span> <span class="cn">NULL</span></span>
+<span>    <span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Blackmore</span>, <span class="fl">22</span><span class="op">)</span></span>
+<span><span class="co">#&gt;    subject   age exercise   group prev_age</span></span>
+<span><span class="co">#&gt; 1      100  8.00     2.71 patient       NA</span></span>
+<span><span class="co">#&gt; 2      100 10.00     1.94 patient        8</span></span>
+<span><span class="co">#&gt; 3      100 12.00     2.36 patient       10</span></span>
+<span><span class="co">#&gt; 4      100 14.00     1.54 patient       12</span></span>
+<span><span class="co">#&gt; 5      100 15.92     8.63 patient       14</span></span>
+<span><span class="co">#&gt; 6      101  8.00     0.14 patient       NA</span></span>
+<span><span class="co">#&gt; 7      101 10.00     0.14 patient        8</span></span>
+<span><span class="co">#&gt; 8      101 12.00     0.00 patient       10</span></span>
+<span><span class="co">#&gt; 9      101 14.00     0.00 patient       12</span></span>
+<span><span class="co">#&gt; 10     101 16.67     5.08 patient       14</span></span>
+<span><span class="co">#&gt; 11     102  8.00     0.92 patient       NA</span></span>
+<span><span class="co">#&gt; 12     102 10.00     1.82 patient        8</span></span>
+<span><span class="co">#&gt; 13     102 12.00     4.75 patient       10</span></span>
+<span><span class="co">#&gt; 14     102 15.08    24.72 patient       12</span></span>
+<span><span class="co">#&gt; 15     103  8.00     1.04 patient       NA</span></span>
+<span><span class="co">#&gt; 16     103 10.00     2.90 patient        8</span></span>
+<span><span class="co">#&gt; 17     103 12.00     2.65 patient       10</span></span>
+<span><span class="co">#&gt; 18     103 14.08     6.86 patient       12</span></span>
+<span><span class="co">#&gt; 19     104  8.00     2.75 patient       NA</span></span>
+<span><span class="co">#&gt; 20     104 10.00     6.62 patient        8</span></span>
+<span><span class="co">#&gt; 21     104 12.00     0.29 patient       10</span></span>
+<span><span class="co">#&gt; 22     104 15.42    12.37 patient       12</span></span></code></pre></div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>

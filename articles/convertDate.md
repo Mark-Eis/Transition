@@ -13,20 +13,20 @@ and
 all need to identify the previous observation for that same subject, if
 any. For compatibility with these **Transition** package functions, the
 timings of observations in a dataset, each referred to as a `timepoint`,
-should be coded within the data frame as R objects of class
+should be coded within the data frame as a column of R class
 [`"Date"`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Dates.html),
 representing calendar dates.
 
 This vignette explains how timepoints represented by numeric values in
-data may be easily converted to class `"Date"`, using the R **base**
+data may easily be converted to class `"Date"`, using the R **base**
 package function
 [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html).
 
 ## 2. Convert numeric values representing year to class `"Date"`
 
-We start by creating an example data frame of longitudinal data
-containing years 2018 to 2025 as numeric values for three subjects with
-observations having one of three possible ordinal values: -
+We start by creating an example data frame of longitudinal data for
+three subjects, containing years 2018 to 2025 as numeric values and with
+observations having one of three possible ordinal values: –
 
 ``` r
 (df <- data.frame(
@@ -64,7 +64,7 @@ observations having one of three possible ordinal values: -
 We convert the numeric values for year in the `timepoint` column to
 class `"Date"`, using
 [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html)
-with consistent arbitrary values of January 1st for month and day: -
+with consistent arbitrary values of January 1st for month and day: –
 
 ``` r
 (df <- transform(
@@ -100,8 +100,9 @@ with consistent arbitrary values of January 1st for month and day: -
 
 We can now use the
 [`add_prev_result()`](https://mark-eis.github.io/Transition/reference/PreviousResult.md)
-function with default values for all but the first argument to add a
-column of results from the previous observation: -
+function with default values for all but the first argument `object`—a
+`data.frame` (or a subclass thereof)—to add a column of results from the
+previous observation: –
 
 ``` r
 (df <- add_prev_result(df))
@@ -133,7 +134,7 @@ column of results from the previous observation: -
 ```
 
 Finally, we can format the class `"Date"` `timepoint` column to show
-just the year, as in the original data: -
+just the year, as in the original data: –
 
 ``` r
 transform(df, timepoint = format(timepoint, "%Y"))
@@ -166,9 +167,10 @@ transform(df, timepoint = format(timepoint, "%Y"))
 
 ## 3. Convert numeric values representing year and month to class `"Date"`
 
-We create another example data frame of longitudinal data containing
-year and month July 2024 to June 2025 as numeric values for two subjects
-with observations having one of two possible ordinal values: -
+We create another example data frame of longitudinal data for two
+subjects, containing year and month from July 2024 to June 2025 as
+numeric values, and with observations having one of two possible ordinal
+values: –
 
 ``` r
 (df <- data.frame(
@@ -204,9 +206,10 @@ with observations having one of two possible ordinal values: -
 #> 24    1002 2025     6   high
 ```
 
-We convert numeric values for year and month to class `"Date"`, using
+We convert the numeric values for year and month to class `"Date"`,
+using
 [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html)
-with a consistent arbitrary value of 1st for day of the month: -
+with a consistent arbitrary value of 1st for day of the month: –
 
 ``` r
 (df <- transform(
@@ -245,7 +248,7 @@ with a consistent arbitrary value of 1st for day of the month: -
 We can now use the
 [`add_transitions()`](https://mark-eis.github.io/Transition/reference/Transitions.md)
 function with default values for all but the first argument to add a
-column of transitions: -
+column of transitions: –
 
 ``` r
 (df <- add_transitions(df))
@@ -277,7 +280,7 @@ column of transitions: -
 ```
 
 Finally, we can format the class `"Date"` `timepoint` column to show
-just the month and year, as in the original data: -
+just the month and year, as in the original data: –
 
 ``` r
 transform(df, timepoint = format(timepoint, "%b-%Y"))
@@ -307,3 +310,177 @@ transform(df, timepoint = format(timepoint, "%b-%Y"))
 #> 23    1001   high  Jun-2025          1
 #> 24    1002   high  Jun-2025          0
 ```
+
+## 4. Convert numeric values representing ages to class `"Date"`
+
+We inspect the first 22 rows of the `Blackmore` data, which includes
+numeric values for age in years rather than dates: –
+
+``` r
+head(Blackmore, 22)
+#>    subject   age exercise   group
+#> 1      100  8.00     2.71 patient
+#> 2      100 10.00     1.94 patient
+#> 3      100 12.00     2.36 patient
+#> 4      100 14.00     1.54 patient
+#> 5      100 15.92     8.63 patient
+#> 6      101  8.00     0.14 patient
+#> 7      101 10.00     0.14 patient
+#> 8      101 12.00     0.00 patient
+#> 9      101 14.00     0.00 patient
+#> 10     101 16.67     5.08 patient
+#> 11     102  8.00     0.92 patient
+#> 12     102 10.00     1.82 patient
+#> 13     102 12.00     4.75 patient
+#> 14     102 15.08    24.72 patient
+#> 15     103  8.00     1.04 patient
+#> 16     103 10.00     2.90 patient
+#> 17     103 12.00     2.65 patient
+#> 18     103 14.08     6.86 patient
+#> 19     104  8.00     2.75 patient
+#> 20     104 10.00     6.62 patient
+#> 21     104 12.00     0.29 patient
+#> 22     104 15.42    12.37 patient
+```
+
+We shall use the
+[`add_prev_date()`](https://mark-eis.github.io/Transition/reference/PreviousDate.md)
+function to add a column of previous test dates. For the `timepoint`
+argument, we convert the age values to class `"Date"` using
+[`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html)
+and an arbitrary “origin” of 1st January 2000[¹](#fn1), to which we add
+the age in days[²](#fn2) calculated as `365.25 * age` (in years).
+
+``` r
+Blackmore <- transform(
+        Blackmore,
+        timepoint = as.Date("2000-01-01") + round(365.25 * age)
+    )
+
+head(Blackmore, 22)
+#>    subject   age exercise   group  timepoint
+#> 1      100  8.00     2.71 patient 2008-01-01
+#> 2      100 10.00     1.94 patient 2009-12-31
+#> 3      100 12.00     2.36 patient 2012-01-01
+#> 4      100 14.00     1.54 patient 2014-01-01
+#> 5      100 15.92     8.63 patient 2015-12-03
+#> 6      101  8.00     0.14 patient 2008-01-01
+#> 7      101 10.00     0.14 patient 2009-12-31
+#> 8      101 12.00     0.00 patient 2012-01-01
+#> 9      101 14.00     0.00 patient 2014-01-01
+#> 10     101 16.67     5.08 patient 2016-09-02
+#> 11     102  8.00     0.92 patient 2008-01-01
+#> 12     102 10.00     1.82 patient 2009-12-31
+#> 13     102 12.00     4.75 patient 2012-01-01
+#> 14     102 15.08    24.72 patient 2015-01-30
+#> 15     103  8.00     1.04 patient 2008-01-01
+#> 16     103 10.00     2.90 patient 2009-12-31
+#> 17     103 12.00     2.65 patient 2012-01-01
+#> 18     103 14.08     6.86 patient 2014-01-30
+#> 19     104  8.00     2.75 patient 2008-01-01
+#> 20     104 10.00     6.62 patient 2009-12-31
+#> 21     104 12.00     0.29 patient 2012-01-01
+#> 22     104 15.42    12.37 patient 2015-06-03
+```
+
+To use the
+[`add_prev_date()`](https://mark-eis.github.io/Transition/reference/PreviousDate.md)
+function, we need to provide a `result` argument in one of two
+permissible formats—an ordered factor, or binary data with values of
+either 1 or 0; note that the `exercise` column is neither of these.
+Since we shall not be using the values of the `exercise` column for this
+demonstration, we simply add a dummy `result` column with values all
+`integer` 0: –
+
+``` r
+Blackmore <- transform(Blackmore, result = 0L)
+```
+
+We can now use
+[`add_prev_date()`](https://mark-eis.github.io/Transition/reference/PreviousDate.md)
+with default values for all but the first argument: –
+
+``` r
+Blackmore <- add_prev_date(Blackmore)
+
+head(Blackmore, 22)
+#>    subject   age exercise   group  timepoint result  prev_date
+#> 1      100  8.00     2.71 patient 2008-01-01      0       <NA>
+#> 2      100 10.00     1.94 patient 2009-12-31      0 2008-01-01
+#> 3      100 12.00     2.36 patient 2012-01-01      0 2009-12-31
+#> 4      100 14.00     1.54 patient 2014-01-01      0 2012-01-01
+#> 5      100 15.92     8.63 patient 2015-12-03      0 2014-01-01
+#> 6      101  8.00     0.14 patient 2008-01-01      0       <NA>
+#> 7      101 10.00     0.14 patient 2009-12-31      0 2008-01-01
+#> 8      101 12.00     0.00 patient 2012-01-01      0 2009-12-31
+#> 9      101 14.00     0.00 patient 2014-01-01      0 2012-01-01
+#> 10     101 16.67     5.08 patient 2016-09-02      0 2014-01-01
+#> 11     102  8.00     0.92 patient 2008-01-01      0       <NA>
+#> 12     102 10.00     1.82 patient 2009-12-31      0 2008-01-01
+#> 13     102 12.00     4.75 patient 2012-01-01      0 2009-12-31
+#> 14     102 15.08    24.72 patient 2015-01-30      0 2012-01-01
+#> 15     103  8.00     1.04 patient 2008-01-01      0       <NA>
+#> 16     103 10.00     2.90 patient 2009-12-31      0 2008-01-01
+#> 17     103 12.00     2.65 patient 2012-01-01      0 2009-12-31
+#> 18     103 14.08     6.86 patient 2014-01-30      0 2012-01-01
+#> 19     104  8.00     2.75 patient 2008-01-01      0       <NA>
+#> 20     104 10.00     6.62 patient 2009-12-31      0 2008-01-01
+#> 21     104 12.00     0.29 patient 2012-01-01      0 2009-12-31
+#> 22     104 15.42    12.37 patient 2015-06-03      0 2012-01-01
+```
+
+Finally, to be consistent with the original data, we can calculate a
+`prev_age`[³](#fn3) column from the `prev_date` column, which itself can
+be removed along with the now superfluous `timepoint` and `result`
+columns: –
+
+``` r
+Blackmore <- transform(
+        Blackmore,
+        prev_age = round(
+                as.integer(prev_date - as.Date("2000-01-01")) / 365.25, 2
+            ),
+        timepoint = NULL, result = NULL, prev_date = NULL
+    )
+
+head(Blackmore, 22)
+#>    subject   age exercise   group prev_age
+#> 1      100  8.00     2.71 patient       NA
+#> 2      100 10.00     1.94 patient        8
+#> 3      100 12.00     2.36 patient       10
+#> 4      100 14.00     1.54 patient       12
+#> 5      100 15.92     8.63 patient       14
+#> 6      101  8.00     0.14 patient       NA
+#> 7      101 10.00     0.14 patient        8
+#> 8      101 12.00     0.00 patient       10
+#> 9      101 14.00     0.00 patient       12
+#> 10     101 16.67     5.08 patient       14
+#> 11     102  8.00     0.92 patient       NA
+#> 12     102 10.00     1.82 patient        8
+#> 13     102 12.00     4.75 patient       10
+#> 14     102 15.08    24.72 patient       12
+#> 15     103  8.00     1.04 patient       NA
+#> 16     103 10.00     2.90 patient        8
+#> 17     103 12.00     2.65 patient       10
+#> 18     103 14.08     6.86 patient       12
+#> 19     104  8.00     2.75 patient       NA
+#> 20     104 10.00     6.62 patient        8
+#> 21     104 12.00     0.29 patient       10
+#> 22     104 15.42    12.37 patient       12
+```
+
+------------------------------------------------------------------------
+
+1.  This is equivalent to assuming all subjects were born on the 1st
+    January 2000, which is permissible so long as these dates are not
+    used for any purpose other than that shown here.
+
+2.  This works because class `"Date"` is represented internally in days
+    and has a method for the `+` operator that returns a date.
+
+3.  Note that by default, R formats the `age` column to two decimal
+    places because some ages in the `Blackmore` dataset are not whole
+    numbers of years. These non-whole number ages are always the last
+    observation for an individual. Consequently, all “previous ages” are
+    indeed whole numbers and R formats the `prev_age` column without
+    showing any decimal places.
