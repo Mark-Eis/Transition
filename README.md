@@ -25,7 +25,7 @@ devtools::install_github("Mark-Eis/Transition")
 
 **Authors:** Mark C. Eisler and Ana V. Rabaza
 
-**eMail:** Mark.Eisler@bristol.ac.uk, arabaza@pasteur.edu.uy
+**Email:** Mark.Eisler@bristol.ac.uk, arabaza@pasteur.edu.uy
 
 **ORCID** = [0000-0001-6843-3345](https://orcid.org/0000-0001-6843-3345), 
 [0000-0002-9713-0797](https://orcid.org/0000-0002-9713-0797)
