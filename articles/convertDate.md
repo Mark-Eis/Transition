@@ -62,8 +62,8 @@ observations having one of three possible ordinal values: –
 ```
 
 We convert the numeric values for year in the `timepoint` column to
-class `"Date"`, using
-[`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html)
+class `"Date"`using
+[`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html),
 with consistent arbitrary values of January 1st for month and day: –
 
 ``` r
@@ -206,9 +206,8 @@ values: –
 #> 24    1002 2025     6   high
 ```
 
-We convert the numeric values for year and month to class `"Date"`,
-using
-[`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html)
+We convert the numeric values for year and month to class `"Date"`using
+[`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html),
 with a consistent arbitrary value of 1st for day of the month: –
 
 ``` r
