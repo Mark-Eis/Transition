@@ -2,6 +2,8 @@
 
 ## Transition 1.0.3
 
+CRAN release: 2026-03-28
+
 - Typos (#22)
 
 - Revise convertDate vignette and add section on ages (#21)
