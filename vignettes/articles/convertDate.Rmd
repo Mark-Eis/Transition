@@ -38,7 +38,7 @@ We start by creating an example data frame of longitudinal data for three subjec
     ))
 ```
 
-We convert the numeric values for year in the `timepoint` column to class `"Date"`, using [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html) with consistent arbitrary values of January 1st for month and day: --
+We convert the numeric values for year in the `timepoint` column to class `"Date"`using [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html), with consistent arbitrary values of January 1st for month and day: --
 
 ```{r}
 (df <- transform(
@@ -72,7 +72,7 @@ We create another example data frame of longitudinal data for two subjects, cont
     ))
 ```
 
-We convert the numeric values for year and month to class `"Date"`, using [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html) with a consistent arbitrary value of 1st for day of the month: --
+We convert the numeric values for year and month to class `"Date"`using [`as.Date()`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/as.Date.html), with a consistent arbitrary value of 1st for day of the month: --
 
 ```{r}
 (df <- transform(
