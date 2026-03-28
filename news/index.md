@@ -1,10 +1,14 @@
 # Changelog
 
-## Transition (development version)
+## Transition 1.0.3
 
-- Revise convertDate vignette and add section on ages \#21
+- Typos (#22)
+
+- Revise convertDate vignette and add section on ages (#21)
 
 ## Transition 1.0.2
+
+CRAN release: 2026-02-11
 
 - Remove redundant code (#15)
 
