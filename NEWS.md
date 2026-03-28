@@ -1,6 +1,8 @@
 # Transition 1.0.3
 
-* Revise convertDate vignette and add section on ages #21
+* Typos (#22)
+
+* Revise convertDate vignette and add section on ages (#21)
 
 # Transition 1.0.2
 
